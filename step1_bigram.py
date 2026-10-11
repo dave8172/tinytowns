@@ -29,7 +29,10 @@ print(f"names: {len(names)} total, {len(train)} train, {len(val)} validation")
 
 
 def pairs(name):
-    """Every (current, next) pair in '.' + name + '.', as numbers."""
+    """Every (current, next) pair in '.' + name + '.', as numbers.
+
+    'paris' -> . p a r i s . -> (.,p) (p,a) (a,r) (r,i) (i,s) (s,.)  (as numbers: (0,17) ...)
+    """
     ids = [0] + [stoi[ch] for ch in name] + [0]
     return zip(ids, ids[1:])
 
@@ -37,12 +40,16 @@ def pairs(name):
 # --- Count -----------------------------------------------------------------
 # Start every cell at 1 (add-one smoothing): a pair never seen in training
 # gets a small probability instead of 0, so the loss can't become infinite.
+# counts[a, b] = how many times symbol b came right after symbol a.
+# Row = current symbol, column = next symbol. A 28x28 grid: these 784 numbers ARE the model.
 counts = torch.ones((V, V))
 for name in train:  # only training names: validation stays unseen
     for a, b in pairs(name):
         counts[a, b] += 1
 
 # Each row becomes "probabilities of the next symbol, given this one".
+# counts.sum(dim=1) adds up each row; dividing makes every row sum to 1.
+# e.g. if 'q' was followed 98 times by 'u' out of 100, probs[q, u] = 0.98.
 probs = counts / counts.sum(dim=1, keepdim=True)
 
 
@@ -52,6 +59,8 @@ def loss(name_list):
     total, n = 0.0, 0
     for name in name_list:
         for a, b in pairs(name):
+            # Row a = what the model bet after symbol a. Column b = what really came next.
+            # No picking, no guessing: just read the probability it gave the real answer.
             total += -math.log(probs[a, b].item())
             n += 1
     return total / n
@@ -79,6 +88,8 @@ print("\n10 sampled names:")
 for _ in range(10):
     i, out = 0, []
     while True:
+        # multinomial = a weighted random pick: a symbol with probability 0.3 is chosen
+        # about 30% of the time. Picking only the top symbol would give the same name every time.
         i = torch.multinomial(probs[i], num_samples=1, generator=g).item()
         if i == 0:
             break

@@ -18,8 +18,8 @@ been to any of them.
 |---|---|---|
 | 0 | City data, cleaned (`data/cities.txt`) | Done |
 | 1 | Letters to numbers, and a counting baseline to beat | Done |
-| 2 | The tinytowns-nano transformer (~4,500 weights), trained on a CPU | Next |
-| 3 | Look inside: every weight, the attention map, the letter table | Planned |
+| 2 | The tinytowns-nano transformer (~4,500 weights), trained on a CPU | Done |
+| 3 | Look inside: every weight, the attention map, the letter table | Next |
 | 4 | Type a few letters, watch it predict the next | Planned |
 | 5 | tinytowns, the bigger model (~105,000 weights), on a GPU | Planned |
 | 6 | Save as safetensors and read the file by hand | Planned |
@@ -36,10 +36,15 @@ Lower is better. Validation names (10%, 3,125) are never used for learning.
 |---|---|---|---|
 | Uniform guess (1/28 for every symbol) | 3.3322 | 3.3322 | — |
 | Counting baseline (bigram, 28×28 table) | 2.6559 | 2.6616 | `python step1_bigram.py` |
+| tinytowns-nano (4,572 weights, 6,000 steps, 41 s on CPU) | 2.4555 | **2.4722** | `python train.py --device cpu` |
 
 Names sampled from the counting baseline (seed 42): `barchirn`, `famoou`, `dol`, `co`, `e`,
 `tareilli da`, `saves`, `buvg`, `unde`, `ncode`. None are real cities. One letter of memory
 isn't enough to make a name sound right; that's the transformer's job.
+
+Names invented by tinytowns-nano after training (seed 42): `barchirno`, `paoou`, `dalico`,
+`el modimar da sales`, `bulgaun`, `el code`, `mista`, `ramazom`, `nigaral landesc`, `patjivskkin`.
+Multi-word names like `el ...` and `... da ...` appear: attention lets it see more than one letter back.
 
 ## Two sizes, one design
 

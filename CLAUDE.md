@@ -80,7 +80,8 @@ Each step: one short file, runnable on its own, committed when it works.
   the point. Libraries for plotting and saving are fine.
 - **CPU must always work; GPU is optional.** Pick the device automatically.
 - **Fixed random seeds** so runs are repeatable.
-- **Comments explain why**, not what the line already says.
+- **Comments explain why, and walk through what each block does** (with grid shapes): the owner
+  asked for detailed comments to learn from. Still skip comments that only repeat the line.
 - **Dependencies as ranges, never pinned** (`torch>=2.2`, not `==2.4.1`).
 - **The README claims only what has been run and measured.** Update its Status table and results
   as each step lands.
