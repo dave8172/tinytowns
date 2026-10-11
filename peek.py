@@ -208,3 +208,47 @@ fig.suptitle("tinytowns-nano tables, flattened with PCA   (red = vowel, blue = c
 fig.tight_layout()
 fig.savefig("runs/tables_pca.png", dpi=120)
 print("saved runs/tables_pca.png")
+
+# --- 6) Temperature: same model, same scores, different picking ------------------
+# Before softmax, every score is divided by the temperature T. T < 1 widens the gaps between
+# scores (the top letter wins more often); T > 1 shrinks them (chances become more even).
+# No weight changes: it only changes how we pick from what the model already says.
+from model import sample  # noqa: E402  (imported here to keep this part self-contained)
+
+PREFIX = "n"            # show what comes after '.n'
+TEMPS = [0.5, 1.0, 2.0]
+with torch.no_grad():
+    after, _ = model(torch.tensor([[0] + [stoi[ch] for ch in PREFIX]]))
+raw = after[0, -1]      # [28]: the raw scores for the symbol after '.n'
+
+# Bar chart: one panel per temperature, 28 bars each (one per possible next symbol).
+fig, axes = plt.subplots(len(TEMPS), 1, figsize=(10, 7), sharex=True, sharey=True)
+labels = ["end" if ch == "." else "_" if ch == " " else ch for ch in ALPHABET]
+print(f"\nAfter '.{PREFIX}', chance of the top 4 next symbols:")
+for ax, T in zip(axes, TEMPS):
+    p = F.softmax(raw / T, dim=-1)  # step 2 + 3: divide by T, then softmax
+    top = p.topk(4)
+    print(f"  T={T}: " + "  ".join(f"{itos[i.item()]!r} {v:.2f}" for v, i in zip(top.values, top.indices))
+          + f"   (these 4 together: {top.values.sum():.0%})")
+    ax.bar(range(len(ALPHABET)), p.numpy(), color="tab:blue")
+    ax.set_ylabel(f"T = {T}")
+    ax.grid(axis="y", alpha=0.3)
+axes[-1].set_xticks(range(len(ALPHABET)), labels)
+axes[0].set_title(f"tinytowns-nano: chance of each next symbol after '.{PREFIX}' (_ = space)")
+fig.tight_layout()
+fig.savefig("runs/temperature.png", dpi=120)
+print("saved runs/temperature.png")
+
+# Invented names at each temperature, marked real (in data/cities.txt) or invented.
+# 10 names are too few to count reliably, so we also count over 500 per temperature.
+with open("data/cities.txt", encoding="utf-8") as f:
+    real = {line.strip() for line in f if line.strip()}
+for T in TEMPS:
+    g = torch.Generator().manual_seed(42)  # same seed for each T: only T differs
+    many = sample(model, 500, temperature=T, generator=g)
+    shown = "  ".join(f"{n}{'*' if n in real else ''}" for n in many[:10])
+    n_real = sum(n in real for n in many)
+    print(f"\nT={T}: {shown}")
+    print(f"  of 500: {n_real} real ({n_real / 5:.1f}%), {len(set(many))} different names, "
+          f"average length {sum(map(len, many)) / 500:.1f} letters")
+print("\n* = a real city in data/cities.txt")

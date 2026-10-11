@@ -19,8 +19,8 @@ been to any of them.
 | 0 | City data, cleaned (`data/cities.txt`) | Done |
 | 1 | Letters to numbers, and a counting baseline to beat | Done |
 | 2 | The tinytowns-nano transformer (~4,500 weights), trained on a CPU | Done |
-| 3 | Look inside: every weight, the attention map, the letter table | Next |
-| 4 | Type a few letters, watch it predict the next | Planned |
+| 3 | Look inside: every weight, the attention map, the letter table | Done |
+| 4 | Type a few letters, watch it predict the next | Next |
 | 5 | tinytowns, the bigger model (~105,000 weights), on a GPU | Planned |
 | 6 | Save as safetensors and read the file by hand | Planned |
 | 7 | Release on Hugging Face | Planned |
@@ -45,6 +45,27 @@ isn't enough to make a name sound right; that's the transformer's job.
 Names invented by tinytowns-nano after training (seed 42): `barchirno`, `paoou`, `dalico`,
 `el modimar da sales`, `bulgaun`, `el code`, `mista`, `ramazom`, `nigaral landesc`, `patjivskkin`.
 Multi-word names like `el ...` and `... da ...` appear: attention lets it see more than one letter back.
+
+## Looking inside tinytowns-nano
+
+`python peek.py` (or `python peek.py <name>`) prints every weight by name and shape, runs the
+forward pass by hand for one name and checks it against the model (largest difference 9.5e-07),
+then saves three pictures to `runs/`. What it showed:
+
+- **Attention looks one letter back.** For `.narita`, at `r` the head gives 0.52 of its attention
+  to `a` and 0.28 to `r` itself. The note already carries its own letter, so attention is spent
+  fetching the one before.
+- **It found vowels on its own.** Flattened to 2D with PCA (keeping 33% of the spread), the lookup
+  table puts all five vowels on one side. Measured over all 16 numbers, vowels sit 27% closer to
+  each other than to consonants; in the untrained model there is no such gap. The output table
+  groups the vowels even more tightly and puts "end of name" and space apart from every letter.
+- **Temperature trades safe for new.** Of 500 names at each temperature (seed 42):
+
+| Temperature | Real cities | Different names | Average length |
+|---|---|---|---|
+| 0.5 | 28 (5.6%) | 488 | 7.4 letters |
+| 1.0 | 3 (0.6%) | 500 | 8.7 letters |
+| 2.0 | 1 (0.2%) | 500 | 11.8 letters |
 
 ## Two sizes, one design
 
