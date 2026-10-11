@@ -21,8 +21,8 @@ been to any of them.
 | 2 | The tinytowns-nano transformer (~4,500 weights), trained on a CPU | Done |
 | 3 | Look inside: every weight, the attention map, the letter table | Done |
 | 4 | Bigger models on a GPU: tinytowns-small (~105,000 weights) and tinytowns (~1,000,000) | Done |
-| 5 | Type a few letters, pick a model, watch it predict the next | Next |
-| 6 | Save as safetensors and read the file by hand | Planned |
+| 5 | Type a few letters, pick a model, watch it predict the next | Done |
+| 6 | Save as safetensors and read the file by hand | Next |
 | 7 | Release on Hugging Face | Planned |
 
 Results land in this README as each step is measured, not before.
@@ -56,6 +56,26 @@ rises (2.1543) while train loss keeps falling (1.9911).
 Invented by tinytowns (seed 42, temperature 1): `brech` (a real name from the training set),
 `gnolpanou`, `dolna atherbergtown`, `araves`, `gulgaun`, `el corregos`, `acro`, `volmonmaekil`,
 `landescurtejovs`, `kingstonville`.
+
+### Do bigger models invent more real places?
+
+`python play.py --compare` invents 10,000 names per model (temperature 1, seed 42) and checks each
+against the list. *real-train*: a real name from the training set (may be copied). *real-new*: a
+real name only in validation, which the model never saw.
+
+| Model | Val loss | real-train | real-new | invented | different names |
+|---|---|---|---|---|---|
+| tinytowns-nano | 2.4676 | 194 | 14 | 9,792 | 9,977 |
+| tinytowns-small | 2.2049 | 242 | 20 | 9,738 | 9,974 |
+| tinytowns | 2.1504 | 386 | 30 | 9,584 | 9,971 |
+
+The 1M model makes about twice as many real names as nano (4.2% against 2.1%), but still invents
+over 95%. The training set is 9 times the validation set, so a model that never copies would hit
+them about 9 to 1; the measured ratios are 13.9, 12.1 and 12.9 to 1. With only 14–30 real-new
+names per model, that's too few to say one model copies more than another.
+
+`python play.py` is interactive: type a prefix like `san` to see the next-letter chances and five
+completions; `:all san` shows all three models, `:model small` switches, `:t 0.7` sets the temperature.
 
 **Steps 1–3: `cities15000`** (28,122 train names, 3,125 validation)
 
