@@ -20,8 +20,8 @@ been to any of them.
 | 1 | Letters to numbers, and a counting baseline to beat | Done |
 | 2 | The tinytowns-nano transformer (~4,500 weights), trained on a CPU | Done |
 | 3 | Look inside: every weight, the attention map, the letter table | Done |
-| 4 | Bigger models on a GPU: tinytowns-small (~105,000 weights) and tinytowns (~1,000,000) | Next |
-| 5 | Type a few letters, pick a model, watch it predict the next | Planned |
+| 4 | Bigger models on a GPU: tinytowns-small (~105,000 weights) and tinytowns (~1,000,000) | Done |
+| 5 | Type a few letters, pick a model, watch it predict the next | Next |
 | 6 | Save as safetensors and read the file by hand | Planned |
 | 7 | Release on Hugging Face | Planned |
 
@@ -41,7 +41,21 @@ A different validation set can be easier or harder, so compare losses only withi
 |---|---|---|---|
 | Uniform guess (1/28 for every symbol) | 3.3322 | 3.3322 | — |
 | Counting baseline (bigram, 28×28 table) | 2.6749 | 2.6732 | `python step1_bigram.py` |
-| tinytowns-nano (4,572 weights, 6,000 steps, 64 s on CPU) | 2.4716 | **2.4676** | `python train.py --device cpu` |
+| tinytowns-nano (4,572 weights, 6,000 steps × 64 names, 53 s on CPU) | 2.4716 | 2.4676 | `python train.py --device cpu` |
+| tinytowns-small (105,052 weights, 6,000 steps × 256 names, 135 s on GPU) | 2.1635 | 2.2049 | `python train.py tinytowns-small` |
+| tinytowns (1,001,500 weights, best at step 5,500 of 6,000 × 256 names, 550 s on GPU) | 2.0085 | **2.1504** | `python train.py tinytowns` |
+
+GPU: an RTX 3050 4 GB laptop card. Times include grading all names every 500 steps.
+`train.py` keeps the weights from the step with the lowest validation loss.
+
+Ten times the weights buys less each time: nano → small lowers validation loss by 0.263,
+small → tinytowns by only 0.055. The 1M model also starts to memorise: its gap between
+validation and train loss grows to 0.142 by step 5,500, and at step 6,000 validation loss
+rises (2.1543) while train loss keeps falling (1.9911).
+
+Invented by tinytowns (seed 42, temperature 1): `brech` (a real name from the training set),
+`gnolpanou`, `dolna atherbergtown`, `araves`, `gulgaun`, `el corregos`, `acro`, `volmonmaekil`,
+`landescurtejovs`, `kingstonville`.
 
 **Steps 1–3: `cities15000`** (28,122 train names, 3,125 validation)
 

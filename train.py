@@ -5,11 +5,15 @@
     python train.py tinytowns           # ~1M weights
     python train.py --device cpu        # force the CPU even if a GPU is present
 
-Prints train and validation loss as it learns, saves the weights to runs/<size>.pt,
-and invents 10 names at the end.
+Prints train and validation loss as it learns. Every time the validation loss reaches a new
+best, saves the weights to runs/<size>.pt, so the file always holds the model at its best moment
+on unseen names (a big model may start memorising later). Invents 10 names at the end.
+
+Careful: even a short test run (--steps 2) overwrites runs/<size>.pt with a barely trained model.
 """
 import argparse
 import math
+import os
 import random
 import time
 
@@ -24,9 +28,17 @@ parser = argparse.ArgumentParser()
 parser.add_argument("size", nargs="?", default="tinytowns-nano", choices=CONFIGS)
 parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
 parser.add_argument("--steps", type=int, default=6000)  # how many nudges
-parser.add_argument("--batch", type=int, default=64)    # names per nudge
-parser.add_argument("--lr", type=float, default=3e-3)   # learning rate = nudge size
+parser.add_argument("--batch", type=int)  # names per nudge (default: see below)
+parser.add_argument("--lr", type=float)   # learning rate = nudge size (default: see below)
 args = parser.parse_args()
+# Batch: on a GPU, 256 names cost about the same time per step as 64 (measured: the GPU is mostly
+# waiting on tiny jobs), so each nudge sees 4x more names for free. On a CPU, 64 is faster.
+if args.batch is None:
+    args.batch = 256 if args.device == "cuda" else 64
+# Nudge size: big, deep models tend to become unstable with large nudges, so the 1M model
+# starts smaller. (3e-3 is what tinytowns-nano was trained with in step 2.)
+if args.lr is None:
+    args.lr = 1e-3 if args.size == "tinytowns" else 3e-3
 
 SEED = 42
 EVAL_EVERY = 500  # how often (in steps) to print train/validation loss
@@ -48,6 +60,7 @@ train_names, val_names = names[:cut], names[cut:]
 x_train, y_train = (t.to(device) for t in encode(train_names))
 x_val, y_val = (t.to(device) for t in encode(val_names))
 print(f"{args.size} on {device}: {len(train_names)} train names, {len(val_names)} validation")
+print(f"batch {args.batch}, learning rate {args.lr}, {args.steps} steps")
 
 # ---------------------------------------------------------------------------
 # Model and optimiser
@@ -80,13 +93,30 @@ def full_loss(x, y, chunk=4096):
 # ---------------------------------------------------------------------------
 # The training loop: predict, score, find gradients, nudge. Repeat.
 # ---------------------------------------------------------------------------
+os.makedirs("runs", exist_ok=True)
+path = f"runs/{args.size}.pt"
+best = {"val": float("inf")}  # the lowest validation loss so far, and the step it happened at
+
+
+def save_if_best(step, tl, vl):
+    """Save the weights if this is the lowest validation loss yet. Returns a mark for the table."""
+    if vl >= best["val"]:
+        return ""
+    best.update(step=step, train=tl, val=vl)
+    # state_dict = every weight grid, by name. We also store the config and when it was best.
+    # Step 6 will switch this to the safetensors format.
+    torch.save({"config": cfg.__dict__, "weights": model.state_dict(), "best": dict(best)}, path)
+    return "  <- best, saved"
+
+
 g = torch.Generator().manual_seed(SEED)  # makes the random batch choices repeatable
 print(f"\n{'step':>6} {'train loss':>11} {'val loss':>9} {'seconds':>8}")
-print(f"{0:>6} {full_loss(x_train, y_train):>11.4f} {full_loss(x_val, y_val):>9.4f} {0:>8.1f}")
+tl, vl = full_loss(x_train, y_train), full_loss(x_val, y_val)
+print(f"{0:>6} {tl:>11.4f} {vl:>9.4f} {0:>8.1f}{save_if_best(0, tl, vl)}")
 start = time.time()
 
 for step in range(1, args.steps + 1):
-    # 1) Pick a batch: 64 random training names (their row numbers).
+    # 1) Pick a batch: args.batch random training names (their row numbers).
     rows = torch.randint(0, len(x_train), (args.batch,), generator=g).to(device)
     xb, yb = x_train[rows], y_train[rows]
 
@@ -104,22 +134,32 @@ for step in range(1, args.steps + 1):
 
     if step % EVAL_EVERY == 0 or step == args.steps:
         tl, vl = full_loss(x_train, y_train), full_loss(x_val, y_val)
-        print(f"{step:>6} {tl:>11.4f} {vl:>9.4f} {time.time() - start:>8.1f}")
+        mark = save_if_best(step, tl, vl)
+        print(f"{step:>6} {tl:>11.4f} {vl:>9.4f} {time.time() - start:>8.1f}{mark}")
+seconds = time.time() - start
 
 # ---------------------------------------------------------------------------
 # Results
 # ---------------------------------------------------------------------------
-print(f"\nbars to beat (validation): even guess {math.log(28):.4f}, counting table (step 1) 2.6732")
+print(f"\ntraining took {seconds:.1f} s")
+print(f"best validation loss {best['val']:.4f} at step {best['step']} "
+      f"(train loss there {best['train']:.4f}), saved in {path}")
+print(f"bars to beat (validation): even guess {math.log(28):.4f}, counting table (step 1) 2.6732")
 
-# Save the learned weights (state_dict = every weight grid, by name) plus the config.
-# Step 6 will switch this to the safetensors format.
-import os
-os.makedirs("runs", exist_ok=True)
-path = f"runs/{args.size}.pt"
-torch.save({"config": cfg.__dict__, "weights": model.state_dict()}, path)
-print(f"saved {path}")
+# From here on, use the best weights, not the last ones.
+model.load_state_dict(torch.load(path, map_location=device)["weights"])
 
-all_names = set(names)
-print("\n10 invented names (temperature 1.0):")
+# "Real" split in two: a real name from the training set may simply be copied;
+# a real name that is only in the validation set was never shown to the model.
+train_set, val_set = set(train_names), set(val_names)
+
+
+def kind(name):
+    if name in train_set:
+        return "real (in training set)"
+    return "real (new: validation only)" if name in val_set else "invented"
+
+
+print("\n10 invented names (temperature 1.0, best weights):")
 for name in sample(model, 10, generator=torch.Generator().manual_seed(SEED)):
-    print(f"  {name:<24} {'real' if name in all_names else 'invented'}")
+    print(f"  {name:<24} {kind(name)}")
