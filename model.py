@@ -13,6 +13,7 @@ A note on shapes. Comments like [B, T, C] give the size of a grid of numbers:
   C = note size  how many numbers in each note (16 nano, 64 small, 128 tinytowns)
 So [B, T, C] means: for every name, for every position, a note of C numbers.
 """
+import json
 import math
 import random
 from dataclasses import dataclass
@@ -104,9 +105,10 @@ class Attention(nn.Module):
         #     . . . T
         #     . . . .
         future = torch.triu(torch.ones(cfg.context, cfg.context, dtype=torch.bool), diagonal=1)
-        # register_buffer: store it with the model (moves to GPU with it) but it is a fixed
-        # table, not a weight, so training never changes it.
-        self.register_buffer("future", future)
+        # register_buffer: keep it with the model (moves to GPU with it) but it is a fixed
+        # table, not a weight, so training never changes it. persistent=False: don't write it
+        # into the weights file; it is rebuilt from the config, so the file holds only weights.
+        self.register_buffer("future", future, persistent=False)
 
     def forward(self, notes):
         B, T, C = notes.shape  # batch, positions, numbers per note
@@ -234,6 +236,31 @@ class TinyTowns(nn.Module):
         #    ignore_index=-1 skips the padding positions.
         loss = F.cross_entropy(scores.view(-1, self.cfg.vocab), y.view(-1), ignore_index=-1)
         return scores, loss
+
+
+# ---------------------------------------------------------------------------
+# Weights file: safetensors (step 6)
+# ---------------------------------------------------------------------------
+# A .safetensors file is: 8 bytes (header length) + a JSON header (each grid's name, number type,
+# shape and byte position) + all the numbers back to back. Nothing in it can run as code.
+# The header may also carry "__metadata__": text only, so we store the config as JSON text.
+# read_weights.py opens this format by hand, without the library.
+def save_weights(model, path, **notes):
+    from safetensors.torch import save_file
+    meta = {"config": json.dumps(model.cfg.__dict__)}
+    meta.update({k: json.dumps(v) for k, v in notes.items()})  # e.g. best={"step": 5500, ...}
+    save_file(model.state_dict(), path, metadata=meta)
+
+
+def load_weights(path, device="cpu"):
+    """Rebuild a model from a .safetensors file. Returns (model, notes)."""
+    from safetensors import safe_open
+    from safetensors.torch import load_file
+    with safe_open(path, framework="pt") as f:
+        meta = {k: json.loads(v) for k, v in f.metadata().items()}
+    model = TinyTowns(Config(**meta.pop("config")))
+    model.load_state_dict(load_file(path))  # every grid, matched by name; errors if any is missing
+    return model.to(device).eval(), meta
 
 
 # ---------------------------------------------------------------------------

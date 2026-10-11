@@ -6,10 +6,10 @@
     python train.py --device cpu        # force the CPU even if a GPU is present
 
 Prints train and validation loss as it learns. Every time the validation loss reaches a new
-best, saves the weights to runs/<size>.pt, so the file always holds the model at its best moment
+best, saves the weights to runs/<size>.safetensors, so the file always holds the model at its best moment
 on unseen names (a big model may start memorising later). Invents 10 names at the end.
 
-Careful: even a short test run (--steps 2) overwrites runs/<size>.pt with a barely trained model.
+Careful: even a short test run (--steps 2) overwrites runs/<size>.safetensors with a barely trained model.
 """
 import argparse
 import math
@@ -19,7 +19,7 @@ import time
 
 import torch
 
-from model import CONFIGS, TinyTowns, encode, sample
+from model import CONFIGS, TinyTowns, encode, load_weights, sample, save_weights
 
 # ---------------------------------------------------------------------------
 # Settings
@@ -94,7 +94,7 @@ def full_loss(x, y, chunk=4096):
 # The training loop: predict, score, find gradients, nudge. Repeat.
 # ---------------------------------------------------------------------------
 os.makedirs("runs", exist_ok=True)
-path = f"runs/{args.size}.pt"
+path = f"runs/{args.size}.safetensors"
 best = {"val": float("inf")}  # the lowest validation loss so far, and the step it happened at
 
 
@@ -103,9 +103,8 @@ def save_if_best(step, tl, vl):
     if vl >= best["val"]:
         return ""
     best.update(step=step, train=tl, val=vl)
-    # state_dict = every weight grid, by name. We also store the config and when it was best.
-    # Step 6 will switch this to the safetensors format.
-    torch.save({"config": cfg.__dict__, "weights": model.state_dict(), "best": dict(best)}, path)
+    # Every weight grid, by name, plus the config and when it was best (see save_weights).
+    save_weights(model, path, best=dict(best))
     return "  <- best, saved"
 
 
@@ -147,7 +146,7 @@ print(f"best validation loss {best['val']:.4f} at step {best['step']} "
 print(f"bars to beat (validation): even guess {math.log(28):.4f}, counting table (step 1) 2.6732")
 
 # From here on, use the best weights, not the last ones.
-model.load_state_dict(torch.load(path, map_location=device)["weights"])
+model, _ = load_weights(path, device)
 
 # "Real" split in two: a real name from the training set may simply be copied;
 # a real name that is only in the validation set was never shown to the model.

@@ -20,7 +20,7 @@ import sys
 import torch
 import torch.nn.functional as F
 
-from model import CONTEXT, Config, TinyTowns, itos, stoi
+from model import CONTEXT, itos, load_weights, stoi
 
 SEED = 42
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -30,14 +30,11 @@ torch.manual_seed(SEED)
 models = {}  # short name -> (model, best validation loss from training)
 for short, size in [("nano", "tinytowns-nano"), ("small", "tinytowns-small"), ("tinytowns", "tinytowns")]:
     try:
-        saved = torch.load(f"runs/{size}.pt", map_location=device)
+        m, notes = load_weights(f"runs/{size}.safetensors", device)
     except FileNotFoundError:
         print(f"(skipping {size}: run `python train.py {size}` first)")
         continue
-    m = TinyTowns(Config(**saved["config"])).to(device)
-    m.load_state_dict(saved["weights"])
-    m.eval()
-    models[short] = (m, saved.get("best", {}).get("val", float("nan")))
+    models[short] = (m, notes.get("best", {}).get("val", float("nan")))
 if not models:
     sys.exit("no trained models in runs/")
 

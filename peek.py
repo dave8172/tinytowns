@@ -21,15 +21,12 @@ import matplotlib.pyplot as plt
 import torch
 import torch.nn.functional as F
 
-from model import ALPHABET, Config, TinyTowns, itos, stoi
+from model import ALPHABET, itos, load_weights, stoi
 
 # --- Load the trained model --------------------------------------------------
-# train.py saved a dict: the config (sizes) and the weights (every grid, by name).
-saved = torch.load("runs/tinytowns-nano.pt", map_location="cpu")
-cfg = Config(**saved["config"])
-model = TinyTowns(cfg)
-model.load_state_dict(saved["weights"])
-model.eval()
+# train.py saved the weights (every grid, by name) and the config in a .safetensors file.
+model, _ = load_weights("runs/tinytowns-nano.safetensors")
+cfg = model.cfg
 
 # --- 1) Every weight, by name ------------------------------------------------
 # The names come from the attribute names in model.py: self.lookup -> "lookup",

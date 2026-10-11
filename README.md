@@ -22,8 +22,8 @@ been to any of them.
 | 3 | Look inside: every weight, the attention map, the letter table | Done |
 | 4 | Bigger models on a GPU: tinytowns-small (~105,000 weights) and tinytowns (~1,000,000) | Done |
 | 5 | Type a few letters, pick a model, watch it predict the next | Done |
-| 6 | Save as safetensors and read the file by hand | Next |
-| 7 | Release on Hugging Face | Planned |
+| 6 | Save as safetensors and read the file by hand | Done |
+| 7 | Release on Hugging Face | Next |
 
 Results land in this README as each step is measured, not before.
 
@@ -76,6 +76,20 @@ names per model, that's too few to say one model copies more than another.
 
 `python play.py` is interactive: type a prefix like `san` to see the next-letter chances and five
 completions; `:all san` shows all three models, `:model small` switches, `:t 0.7` sets the temperature.
+
+### Inside the weights file
+
+`train.py` saves each model as `runs/<size>.safetensors`: 8 bytes giving the header length, a JSON
+header (each grid's name, number type, shape and byte position, plus the config as text), then
+every weight as a 4-byte number, back to back. `python read_weights.py [size]` opens it with only
+`struct` and `json`, prints that table, and rebuilds the letter table from raw bytes; it matches
+the model's own grid bit for bit.
+
+| File | Header | Data | Whole file |
+|---|---|---|---|
+| tinytowns-nano | 2,024 bytes | 18,288 (4,572 × 4) | 20,320 bytes |
+| tinytowns-small | 3,504 bytes | 420,208 (105,052 × 4) | 423,720 bytes |
+| tinytowns | 8,040 bytes | 4,006,000 (1,001,500 × 4) | 4,014,048 bytes |
 
 **Steps 1–3: `cities15000`** (28,122 train names, 3,125 validation)
 
