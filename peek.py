@@ -158,3 +158,53 @@ fig.tight_layout()
 path = f"runs/attention_{name.replace(' ', '_')}.png"
 fig.savefig(path, dpi=120)
 print(f"\nsaved {path}")
+
+# --- 5) The lookup and output tables, flattened to 2D (PCA) ------------------
+# Each table is [28, 16]: 28 symbols, each a 16-number row = a point with a 16-part address.
+# We can't draw 16 directions, so we find the 2 directions in which the 28 points are most
+# spread out, and measure each point along those 2. That gives an (x, y) per symbol.
+def flatten_2d(table):
+    # 1) Centre: subtract the average row, so the cloud of points sits around 0.  [28, 16]
+    centred = table - table.mean(dim=0)
+    # 2) SVD (a standard way to pull a grid apart) gives the directions of most spread, best
+    #    first, as the rows of `directions` [16, 16]. `sizes` says how much spread each one has.
+    _, sizes, directions = torch.linalg.svd(centred, full_matrices=False)
+    # 3) Project: how far each point lies along direction 1 and direction 2.
+    #    [28, 16] @ [16, 2] -> [28, 2]: one (x, y) per symbol.
+    xy = centred @ directions[:2].T
+    # Share of the total spread that the 2D picture keeps (the rest is in the 14 hidden directions).
+    kept = (sizes[:2] ** 2).sum() / (sizes ** 2).sum()
+    return xy, kept.item()
+
+# Colour by kind of symbol, only to make the picture easier to read. The model was never told
+# which letters are vowels; if they cluster, it found that out from the names on its own.
+def colour(ch):
+    if ch in ".":
+        return "black"
+    if ch == " ":
+        return "grey"
+    return "tab:red" if ch in "aeiou" else "tab:blue"
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 5))
+tables = [("lookup table (symbol in -> note)", model.lookup.weight),
+          ("output table (note -> next symbol)", model.output.weight)]
+print()
+for ax, (title, table) in zip(axes, tables):
+    xy, kept = flatten_2d(table.detach())
+    print(f"{title}: the 2D picture keeps {kept:.0%} of the spread")
+    for i, ch in enumerate(ALPHABET):
+        label = "_" if ch == " " else ch  # draw the space as '_' so it is visible
+        ax.text(xy[i, 0], xy[i, 1], label, ha="center", va="center", fontsize=14,
+                color=colour(ch), fontweight="bold")
+    # ax.text doesn't stretch the axes, so set the limits by hand with a small margin.
+    pad = 0.1 * (xy.max() - xy.min())
+    ax.set_xlim(xy[:, 0].min() - pad, xy[:, 0].max() + pad)
+    ax.set_ylim(xy[:, 1].min() - pad, xy[:, 1].max() + pad)
+    ax.set_title(f"{title}\n2D keeps {kept:.0%} of the spread", fontsize=10)
+    ax.set_xlabel("direction 1")
+    ax.set_ylabel("direction 2")
+    ax.grid(alpha=0.3)
+fig.suptitle("tinytowns-nano tables, flattened with PCA   (red = vowel, blue = consonant, _ = space)")
+fig.tight_layout()
+fig.savefig("runs/tables_pca.png", dpi=120)
+print("saved runs/tables_pca.png")
