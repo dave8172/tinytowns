@@ -17,19 +17,33 @@ been to any of them.
 | Step | What | Status |
 |---|---|---|
 | 0 | City data, cleaned (`data/cities.txt`) | Done |
-| 1 | Letters to numbers, and a counting baseline to beat | Next |
-| 2 | The pico transformer (~4,500 weights), trained on a CPU | Planned |
+| 1 | Letters to numbers, and a counting baseline to beat | Done |
+| 2 | The tinytowns-nano transformer (~4,500 weights), trained on a CPU | Next |
 | 3 | Look inside: every weight, the attention map, the letter table | Planned |
 | 4 | Type a few letters, watch it predict the next | Planned |
-| 5 | A bigger model (~100,000 weights) on a GPU | Planned |
+| 5 | tinytowns, the bigger model (~105,000 weights), on a GPU | Planned |
 | 6 | Save as safetensors and read the file by hand | Planned |
 | 7 | Release on Hugging Face | Planned |
 
 Results land in this README as each step is measured, not before.
 
+## Results so far
+
+Loss is the average of −ln(probability the model gave to the letter that really came next).
+Lower is better. Validation names (10%, 3,125) are never used for learning.
+
+| Model | Train loss | Validation loss | Run with |
+|---|---|---|---|
+| Uniform guess (1/28 for every symbol) | 3.3322 | 3.3322 | — |
+| Counting baseline (bigram, 28×28 table) | 2.6559 | 2.6616 | `python step1_bigram.py` |
+
+Names sampled from the counting baseline (seed 42): `barchirn`, `famoou`, `dol`, `co`, `e`,
+`tareilli da`, `saves`, `buvg`, `unde`, `ncode`. None are real cities. One letter of memory
+isn't enough to make a name sound right; that's the transformer's job.
+
 ## Two sizes, one design
 
-| | pico | small |
+| | tinytowns-nano | tinytowns |
 |---|---|---|
 | Alphabet | 28 symbols: a–z, space, end of name | same |
 | Note size per letter | 16 numbers | 64 numbers |

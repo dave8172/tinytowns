@@ -49,8 +49,8 @@ changes the numbers (loss, gradients, optimiser), and seeing all of it in real c
 - **Split:** 90% train, 10% validation, fixed seed. Report validation loss.
 - **Reference point:** guessing uniformly over 28 symbols is a loss of ln 28 ≈ 3.33. Step 1's
   counting baseline sets the real bar; the transformer must beat it.
-- **Two sizes, one code path, chosen by config:** pico (16-number note, 1 layer, 1 head, MLP 64,
-  ≈ 4,500 weights) and small (64, 2 layers, 4 heads, MLP 256, ≈ 105,000).
+- **Two sizes, one code path, chosen by config:** tinytowns-nano (16-number note, 1 layer, 1 head, MLP 64,
+  ≈ 4,500 weights) and tinytowns (64, 2 layers, 4 heads, MLP 256, ≈ 105,000).
 - **Real vs invented:** a generated name is "real" if it's in `data/cities.txt`.
 
 ## Build plan
@@ -60,7 +60,7 @@ Each step: one short file, runnable on its own, committed when it works.
 1. **Letters ↔ numbers + counting baseline** (`step1_bigram.py`). A 28×28 table of "which letter
    follows which", sample names from it, compute its loss. Done when: loss printed, 10 sample
    names printed. Teaches what the loss number means.
-2. **Pico transformer** (`model.py`, `train.py`). Plain PyTorch, written by hand: lookup and
+2. **tinytowns-nano transformer** (`model.py`, `train.py`). Plain PyTorch, written by hand: lookup and
    position tables, one attention head with the mask, knowledge step, output table. Train on CPU.
    Done when: validation loss beats step 1, with numbers in the README.
 3. **Look inside** (`peek.py`). Print every weight by name and shape, mapped to the vocabulary
@@ -68,8 +68,8 @@ Each step: one short file, runnable on its own, committed when it works.
    probabilities; show the effect of temperature.
 4. **Type and predict** (`play.py`). Type a prefix; show next-letter percentages and 5 completions
    marked real or invented.
-5. **Small model on GPU.** Same code, small config, `device="cuda"` when available. Compare loss,
-   samples, and time against pico.
+5. **tinytowns (the bigger model) on GPU.** Same code, bigger config, `device="cuda"` when available. Compare loss,
+   samples, and time against tinytowns-nano.
 6. **Weights file.** Save with `safetensors`; read the header by hand (8-byte length, then JSON
    with each tensor's name, dtype, shape, byte offsets).
 7. **Hugging Face release.** Weights, config, model card (data credit included), maybe a demo.
