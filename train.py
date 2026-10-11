@@ -1,7 +1,8 @@
 """Step 2b: train the transformer by nudging its weights to lower the loss.
 
     python train.py                     # tinytowns-nano (default)
-    python train.py tinytowns           # the bigger model
+    python train.py tinytowns-small     # ~105K weights
+    python train.py tinytowns           # ~1M weights
     python train.py --device cpu        # force the CPU even if a GPU is present
 
 Prints train and validation loss as it learns, saves the weights to runs/<size>.pt,
@@ -43,7 +44,7 @@ random.Random(SEED).shuffle(names)
 cut = int(0.9 * len(names))
 train_names, val_names = names[:cut], names[cut:]
 
-# Encode every name once, up front: [28122, 21] and [3125, 21] grids of numbers.
+# Encode every name once, up front: [128435, 21] and [14271, 21] grids of numbers.
 x_train, y_train = (t.to(device) for t in encode(train_names))
 x_val, y_val = (t.to(device) for t in encode(val_names))
 print(f"{args.size} on {device}: {len(train_names)} train names, {len(val_names)} validation")
@@ -108,7 +109,7 @@ for step in range(1, args.steps + 1):
 # ---------------------------------------------------------------------------
 # Results
 # ---------------------------------------------------------------------------
-print(f"\nbars to beat (validation): even guess {math.log(28):.4f}, counting table (step 1) 2.6616")
+print(f"\nbars to beat (validation): even guess {math.log(28):.4f}, counting table (step 1) 2.6732")
 
 # Save the learned weights (state_dict = every weight grid, by name) plus the config.
 # Step 6 will switch this to the safetensors format.

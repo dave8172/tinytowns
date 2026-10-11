@@ -10,7 +10,7 @@ model in ~10 lines. Then go up into `Layer`, `Attention` and `Knowledge` for the
 A note on shapes. Comments like [B, T, C] give the size of a grid of numbers:
   B = batch      how many names we process at once (e.g. 64)
   T = positions  how many symbols per name (at most 21)
-  C = note size  how many numbers in each note (16 for nano, 64 for tinytowns)
+  C = note size  how many numbers in each note (16 nano, 64 small, 128 tinytowns)
 So [B, T, C] means: for every name, for every position, a note of C numbers.
 """
 import math
@@ -47,8 +47,9 @@ class Config:
 
 
 CONFIGS = {
-    "tinytowns-nano": Config(note=16, layers=1, heads=1, mlp=64),   # 4,572 weights
-    "tinytowns": Config(note=64, layers=2, heads=4, mlp=256),       # 105,052 weights
+    "tinytowns-nano": Config(note=16, layers=1, heads=1, mlp=64),     # 4,572 weights
+    "tinytowns-small": Config(note=64, layers=2, heads=4, mlp=256),   # 105,052 weights
+    "tinytowns": Config(note=128, layers=5, heads=4, mlp=512),        # 1,001,500 weights
 }
 
 
@@ -109,7 +110,7 @@ class Attention(nn.Module):
 
     def forward(self, notes):
         B, T, C = notes.shape  # batch, positions, numbers per note
-        hs = C // self.heads   # numbers per head ("head size"): 16 for nano, 64/4 = 16 for tinytowns
+        hs = C // self.heads   # numbers per head ("head size"): 16 nano, 64/4 = 16 small, 128/4 = 32 tinytowns
 
         # 1) q, k, v for every position at once: [B, T, C] x grid -> [B, T, C].
         #    .view splits the last C numbers into (heads, hs); .transpose moves "heads" forward

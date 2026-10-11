@@ -5,7 +5,7 @@ This repo is public. Everything here, including this file, is read by strangers.
 ## What this is
 
 A learning project: the owner is learning how transformers work by building a tiny one from
-scratch, a letter-level GPT that learns city names (`data/cities.txt`, 31,247 names) and invents
+scratch, a letter-level GPT that learns city names (`data/cities.txt`, 142,706 names) and invents
 new ones. **Understanding is the product.** A working model the owner can't explain line by line
 is a failed step.
 
@@ -49,9 +49,16 @@ changes the numbers (loss, gradients, optimiser), and seeing all of it in real c
 - **Split:** 90% train, 10% validation, fixed seed. Report validation loss.
 - **Reference point:** guessing uniformly over 28 symbols is a loss of ln 28 ≈ 3.33. Step 1's
   counting baseline sets the real bar; the transformer must beat it.
-- **Two sizes, one code path, chosen by config:** tinytowns-nano (16-number note, 1 layer, 1 head, MLP 64,
-  ≈ 4,500 weights) and tinytowns (64, 2 layers, 4 heads, MLP 256, ≈ 105,000).
-- **Real vs invented:** a generated name is "real" if it's in `data/cities.txt`.
+- **Data:** GeoNames `cities1000` (1,000+ people, 243 countries), 142,706 names. Steps 1–3 were
+  first measured on `cities15000` (31,247 names); losses on different data aren't comparable, so
+  the step 1 baseline and tinytowns-nano were re-run on `cities1000`. Old numbers stay in the
+  README, labelled with their dataset.
+- **Three sizes, one code path, chosen by config:** tinytowns-nano (16-number note, 1 layer, 1 head,
+  MLP 64, 4,572 weights), tinytowns-small (64, 2 layers, 4 heads, MLP 256, 105,052) and tinytowns,
+  the default (128, 5 layers, 4 heads, MLP 512, 1,001,500).
+- **Real vs invented:** a generated name is "real" if it's in `data/cities.txt`. Split it: real and
+  in the training set (may be copied), real and only in validation (truly invented a real place),
+  invented. Validation loss stays the main score; a model that memorises makes many "real" names.
 
 ## Build plan
 
@@ -66,10 +73,12 @@ Each step: one short file, runnable on its own, committed when it works.
 3. **Look inside** (`peek.py`). Print every weight by name and shape, mapped to the vocabulary
    above; plot attention for one name; plot the letter table in 2D (PCA); bar chart of next-letter
    probabilities; show the effect of temperature.
-4. **Type and predict** (`play.py`). Type a prefix; show next-letter percentages and 5 completions
-   marked real or invented.
-5. **tinytowns (the bigger model) on GPU.** Same code, bigger config, `device="cuda"` when available. Compare loss,
-   samples, and time against tinytowns-nano.
+4. **Bigger models on GPU** (tinytowns-small, tinytowns). Same code, bigger configs, `device="cuda"`
+   when available, bigger batch on GPU, keep the weights from the step with the best validation
+   loss (bigger models can overfit). Compare loss, time and samples across all three sizes.
+5. **Type and predict** (`play.py`). Pick a model; type a prefix; show next-letter percentages and
+   5 completions marked real-in-train, real-new or invented. Plus a side-by-side table of the three
+   models: does a small model do as well on this small task?
 6. **Weights file.** Save with `safetensors`; read the header by hand (8-byte length, then JSON
    with each tensor's name, dtype, shape, byte offsets).
 7. **Hugging Face release.** Weights, config, model card (data credit included), maybe a demo.

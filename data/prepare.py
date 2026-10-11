@@ -4,7 +4,9 @@ Run it once (it's already been run; cities.txt is in the repo):
 
     python data/prepare.py
 
-Source: GeoNames "cities15000", every city with 15,000+ people, about 34,000 rows.
+Source: GeoNames "cities1000", every place with 1,000+ people, about 171,000 rows from
+243 countries. (We started with "cities15000", 15,000+ people, 31,247 names; the bigger
+list gives ~4.6x more names, so the larger models have more to learn from.)
 https://www.geonames.org, licensed CC BY 4.0. We keep only the name column
 and clean it as described below.
 
@@ -16,7 +18,8 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
-URL = "https://download.geonames.org/export/dump/cities15000.zip"
+LIST = "cities1000"  # GeoNames also has cities500, cities5000, cities15000
+URL = f"https://download.geonames.org/export/dump/{LIST}.zip"
 OUT = Path(__file__).parent / "cities.txt"
 
 # The model's whole alphabet: 26 letters and a space. A 28th symbol, "end of
@@ -48,7 +51,7 @@ def main() -> None:
         archive = zipfile.ZipFile(io.BytesIO(resp.read()))
 
     names = set()  # a set, because many countries share city names
-    with archive.open("cities15000.txt") as f:
+    with archive.open(f"{LIST}.txt") as f:
         for line in io.TextIOWrapper(f, encoding="utf-8"):
             # Tab-separated. Column 3 is "asciiname": the name in plain
             # Latin letters, so "São Paulo" arrives as "Sao Paulo".
