@@ -1,0 +1,54 @@
+{
+  "alphabet": ". abcdefghijklmnopqrstuvwxyz",
+  "context": 21,
+  "models": {
+    "tinytowns-nano": {
+      "file": "tinytowns-nano.safetensors",
+      "config": {
+        "note": 16,
+        "layers": 1,
+        "heads": 1,
+        "mlp": 64,
+        "vocab": 28,
+        "context": 21
+      },
+      "best": {
+        "val": 2.4675988286113837,
+        "step": 6000,
+        "train": 2.4715626743658925
+      }
+    },
+    "tinytowns-small": {
+      "file": "tinytowns-small.safetensors",
+      "config": {
+        "note": 64,
+        "layers": 2,
+        "heads": 4,
+        "mlp": 256,
+        "vocab": 28,
+        "context": 21
+      },
+      "best": {
+        "val": 2.204930374534438,
+        "step": 6000,
+        "train": 2.163463504194485
+      }
+    },
+    "tinytowns": {
+      "file": "tinytowns.safetensors",
+      "config": {
+        "note": 128,
+        "layers": 5,
+        "heads": 4,
+        "mlp": 512,
+        "vocab": 28,
+        "context": 21
+      },
+      "best": {
+        "val": 2.1504435154883446,
+        "step": 5500,
+        "train": 2.0084609753969103
+      }
+    }
+  }
+}

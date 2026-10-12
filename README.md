@@ -23,7 +23,7 @@ been to any of them.
 | 4 | Bigger models on a GPU: tinytowns-small (~105,000 weights) and tinytowns (~1,000,000) | Done |
 | 5 | Type a few letters, pick a model, watch it predict the next | Done |
 | 6 | Save as safetensors and read the file by hand | Done |
-| 7 | Release on Hugging Face | Next |
+| 7 | Release on Hugging Face | Done |
 
 Results land in this README as each step is measured, not before.
 
@@ -90,6 +90,15 @@ the model's own grid bit for bit.
 | tinytowns-nano | 2,024 bytes | 18,288 (4,572 × 4) | 20,320 bytes |
 | tinytowns-small | 3,504 bytes | 420,208 (105,052 × 4) | 423,720 bytes |
 | tinytowns | 8,040 bytes | 4,006,000 (1,001,500 × 4) | 4,014,048 bytes |
+
+### On Hugging Face
+
+All three models are at [huggingface.co/DaveMeh94/tinytowns](https://huggingface.co/DaveMeh94/tinytowns):
+the three `.safetensors` files, `model.py`, `config.json` and a model card (`hf/README.md` here).
+`python release_hf.py` lists what would be sent; `--upload` sends it in one commit; `--check`
+downloads the repo into an empty folder and re-grades each model with the downloaded `model.py`.
+Measured after upload, without a login: validation loss 2.4676 / 2.2049 / 2.1504, the same as
+before upload to 4 decimals, and the model card's example prints the same ten names as above.
 
 **Steps 1–3: `cities15000`** (28,122 train names, 3,125 validation)
 
