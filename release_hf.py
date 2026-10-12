@@ -21,7 +21,7 @@ from safetensors import safe_open
 
 from model import CONFIGS
 
-REPO = "DaveMeh94/tinytowns"
+REPO = "dave8172/tinytowns"
 SEED = 42  # same as train.py, so --check grades on the same 14,271 validation names
 
 # Every file in the release: name on Hugging Face -> where it is on this computer.

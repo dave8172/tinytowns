@@ -12,6 +12,9 @@ letter. Type `ban` and the model gives a probability for every possible next let
 letters until it predicts "end of name", and you have a city that may or may not exist. It has never
 been to any of them.
 
+**Try it in your browser:** [quirkyagents.com/wizard/projects/tinytowns](https://quirkyagents.com/wizard/projects/tinytowns/).
+Type a few letters, watch the model's next-letter chances, and see if the town it finishes is real.
+
 ## Status
 
 | Step | What | Status |
@@ -27,7 +30,7 @@ been to any of them.
 
 Results land in this README as each step is measured, not before.
 
-## Results so far
+## Results
 
 Loss is the average of −ln(probability the model gave to the letter that really came next).
 Lower is better. Validation names (10%) are never used for learning.
@@ -93,7 +96,7 @@ the model's own grid bit for bit.
 
 ### On Hugging Face
 
-All three models are at [huggingface.co/DaveMeh94/tinytowns](https://huggingface.co/DaveMeh94/tinytowns):
+All three models are at [huggingface.co/dave8172/tinytowns](https://huggingface.co/dave8172/tinytowns):
 the three `.safetensors` files, `model.py`, `config.json` and a model card (`hf/README.md` here).
 `python release_hf.py` lists what would be sent; `--upload` sends it in one commit; `--check`
 downloads the repo into an empty folder and re-grades each model with the downloaded `model.py`.
@@ -152,10 +155,10 @@ then saves three pictures to `runs/`. What it showed:
 
 For scale, Llama 3 8B has 8,000,000,000 weights and is a 16 GB download.
 
-## What you'll be able to see
+## What you can see
 
 - **The next-letter probabilities** as you type, so the model's output is a list of percentages, not a mystery.
-- **Real or invented:** every generated name is checked against the training list.
+- **Real or invented:** every generated name is checked against the full name list.
 - **The attention map:** for a name like `bengaluru`, which earlier letters each letter looked at.
 - **The letter table:** each letter's 16 numbers, flattened to a 2D picture.
 - **Training:** the loss falling as random numbers turn into useful ones.
@@ -177,6 +180,35 @@ For an NVIDIA GPU, install PyTorch's CUDA build first, using the command from th
 [pytorch.org/get-started](https://pytorch.org/get-started/locally/), then the line above.
 
 The city list is already in the repo. To rebuild it from the source: `python data/prepare.py`.
+
+## In JavaScript
+
+`tinytowns.js` is the same model for a browser or Node: one file, no libraries. It reads a
+`.safetensors` file and runs the forward pass and sampling by hand (no training). Measured: on all
+14,271 validation names it gives the same loss as the PyTorch model to six decimal places, for all
+three sizes (2.467599, 2.204930, 2.150443).
+
+```html
+<script src="tinytowns.js"></script>
+<script>
+  TinyTowns.load(TinyTowns.url("tinytowns-small")).then((model) => {
+    console.log(model.next("ban"));                          // 28 probabilities, in ". abc...z" order
+    console.log(model.sample("ban", { temperature: 0.8 }));  // a name starting with "ban"
+  });
+</script>
+```
+
+`TinyTowns.url(size)` points at the weights on Hugging Face; `TinyTowns.load` also takes an
+`ArrayBuffer` if you host the file yourself. In Node, `require("./tinytowns.js")`.
+
+## Ideas for using it
+
+Not built or tested yet, just directions:
+
+- **Games and maps:** town names made on the player's device. nano is a 20 KB file.
+- **Test data that names no real place:** generate names, keep only the invented ones.
+- **A "does this look like a place name?" score:** the model's loss on a name says how surprising
+  each letter was, which could flag `asdfgh` typed into a city field.
 
 ## The data
 

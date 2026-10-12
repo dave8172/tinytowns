@@ -21,6 +21,9 @@ This is a learning project: a transformer written by hand in plain PyTorch, smal
 every number of. Code, step-by-step build and all measurements:
 [github.com/dave8172/tinytowns](https://github.com/dave8172/tinytowns).
 
+**Try it in your browser:** [quirkyagents.com/wizard/projects/tinytowns](https://quirkyagents.com/wizard/projects/tinytowns/).
+The page downloads these weights and runs the model on your device.
+
 ## The three models
 
 All three use one design and one code file (`model.py`); only the config differs.
@@ -55,7 +58,7 @@ Needs `torch>=2.2`, `safetensors` and `huggingface_hub`.
 from huggingface_hub import hf_hub_download
 import importlib.util, torch
 
-repo = "DaveMeh94/tinytowns"
+repo = "dave8172/tinytowns"
 spec = importlib.util.spec_from_file_location("model", hf_hub_download(repo, "model.py"))
 model = importlib.util.module_from_spec(spec); spec.loader.exec_module(model)
 
@@ -65,6 +68,10 @@ print(model.sample(net, 10, temperature=1.0, generator=torch.Generator().manual_
 
 `model.py` is plain PyTorch with no other code from this project. Read it before you run it, as with
 any downloaded code.
+
+In a browser or Node, `tinytowns.js` in the GitHub repo runs the same model with no libraries
+(forward pass and sampling only). On all 14,271 validation names it matches the PyTorch loss to six
+decimal places.
 
 ## What to expect
 
@@ -81,7 +88,8 @@ Out of 10,000 names sampled at temperature 1 (seed 42), checked against the full
 - It knows only lowercase `a`–`z` and space. Accents were removed, and non-Latin names are not in the data.
 - A generated name is a sound-alike, not a place. Most outputs don't exist, and a "real" one may be
   copied from the training data.
-- It is built for learning, not for any real-world use.
+- It is built for learning. Ideas for use (game maps, test data that names no real place, a
+  "does this look like a place name?" score) are untested.
 
 ## Data and credit
 
