@@ -2,6 +2,11 @@
 
 **A transformer small enough to read every number of. It learns from 142,706 real place names and invents new ones.**
 
+**What it is for:** tinytowns makes up new town names in the style of real ones. It learned the
+letter patterns of 128,435 real place names: it was trained to guess the next letter of a place
+name as well as it can. It does not know which places exist, so most names it writes are new. To
+find real places, look them up in a list of places, or ask a large AI model such as Claude.
+
 This is a learning project, built in the open, one step at a time. The goal is to see how a
 transformer (the design behind GPT and Llama) works by training one so small that every
 weight fits on a screen: the smallest has **4,572 numbers**, the largest about a million, against the billions in a chat model. Same parts,
@@ -9,11 +14,12 @@ same maths, nothing hidden.
 
 The task is the one every GPT-style model does: **predict the next token**. Here a token is one
 letter. Type `ban` and the model gives a probability for every possible next letter; keep picking
-letters until it predicts "end of name", and you have a city that may or may not exist. It has never
-been to any of them.
+letters until it predicts "end of name", and you have a new name. It may match a real place by
+chance; it has never been to any of them.
 
 **Try it in your browser:** [quirkyagents.com/wizard/projects/tinytowns](https://quirkyagents.com/wizard/projects/tinytowns/).
-Type a few letters, watch the model's next-letter chances, and see if the town it finishes is real.
+Type a few letters, watch the model's next-letter chances, and let it finish a name. The page
+checks the name against the list of real places; most are new, as intended.
 
 ## Status
 

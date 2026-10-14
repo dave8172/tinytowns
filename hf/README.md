@@ -17,6 +17,11 @@ pipeline_tag: text-generation
 **Three tiny letter-level GPTs that invent city names.** Trained on 128,435 real place names from
 GeoNames. The smallest has 4,572 weights, the largest about a million.
 
+**What it is for:** tinytowns makes up new town names in the style of real ones. It learned the
+letter patterns of 128,435 real place names: it was trained to guess the next letter of a place
+name as well as it can. It does not know which places exist, so most names it writes are new. To
+find real places, look them up in a list of places, or ask a large AI model such as Claude.
+
 This is a learning project: a transformer written by hand in plain PyTorch, small enough to read
 every number of. Code, step-by-step build and all measurements:
 [github.com/dave8172/tinytowns](https://github.com/dave8172/tinytowns).
@@ -86,8 +91,10 @@ Out of 10,000 names sampled at temperature 1 (seed 42), checked against the full
 ## Limits
 
 - It knows only lowercase `a`–`z` and space. Accents were removed, and non-Latin names are not in the data.
-- A generated name is a sound-alike, not a place. Most outputs don't exist, and a "real" one may be
-  copied from the training data.
+- It does not know which places exist. A generated name follows the letter patterns of real names;
+  most don't exist, and a "real" one may be copied from the training data. To finish a name with a
+  real place, a lookup in a list of places is faster, and gives a real name whenever one starts
+  with those letters.
 - It is built for learning. Ideas for use (game maps, test data that names no real place, a
   "does this look like a place name?" score) are untested.
 
