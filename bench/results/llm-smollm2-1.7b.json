@@ -1,0 +1,1819 @@
+{
+ "result": {
+  "model": "HuggingFaceTB/SmolLM2-1.7B",
+  "weights": 1711376384,
+  "device": "NVIDIA GeForce RTX 3050 4GB Laptop GPU",
+  "placed_on": [
+   "cpu",
+   "cuda:0"
+  ],
+  "n_names": 300,
+  "loss": 1.993113359375,
+  "ms_per_name": 255.23005000104604,
+  "real": 0.43,
+  "exact": 0.016666666666666666,
+  "finish_ms_per_name": 2249.2769499986025
+ },
+ "names": [
+  {
+   "name": "bayan ulaan",
+   "surprise": 23.73462677001953,
+   "answer": "bayonne",
+   "kind": "real-train"
+  },
+  {
+   "name": "torit",
+   "surprise": 15.424753189086914,
+   "answer": "torre di santangelo",
+   "kind": "invented"
+  },
+  {
+   "name": "sierksdorf",
+   "surprise": 21.847553253173828,
+   "answer": "siege",
+   "kind": "invented"
+  },
+  {
+   "name": "boussu",
+   "surprise": 14.829126358032227,
+   "answer": "boulevard",
+   "kind": "invented"
+  },
+  {
+   "name": "montfoort",
+   "surprise": 26.65435791015625,
+   "answer": "monte carlo",
+   "kind": "real-train"
+  },
+  {
+   "name": "stroppiana",
+   "surprise": 19.759231567382812,
+   "answer": "stratford",
+   "kind": "real-train"
+  },
+  {
+   "name": "nueva colombia",
+   "surprise": 16.526710510253906,
+   "answer": "nueva esperanza",
+   "kind": "real-train"
+  },
+  {
+   "name": "yaviza",
+   "surprise": 16.210575103759766,
+   "answer": "yavuz",
+   "kind": "invented"
+  },
+  {
+   "name": "mutunopolis",
+   "surprise": 25.333511352539062,
+   "answer": "mutual",
+   "kind": "invented"
+  },
+  {
+   "name": "sankarankovil",
+   "surprise": 20.611465454101562,
+   "answer": "san jose",
+   "kind": "real-train"
+  },
+  {
+   "name": "kuliouou kalani iki",
+   "surprise": 51.47784423828125,
+   "answer": "kulm",
+   "kind": "invented"
+  },
+  {
+   "name": "manhumirim",
+   "surprise": 23.152877807617188,
+   "answer": "manzana de la rosa",
+   "kind": "invented"
+  },
+  {
+   "name": "ouled ahmed timmi",
+   "surprise": 44.17776107788086,
+   "answer": "oulan",
+   "kind": "invented"
+  },
+  {
+   "name": "summerville",
+   "surprise": 13.226030349731445,
+   "answer": "suma",
+   "kind": "invented"
+  },
+  {
+   "name": "pende",
+   "surprise": 16.52367401123047,
+   "answer": "penang",
+   "kind": "invented"
+  },
+  {
+   "name": "chatel saint germain",
+   "surprise": 25.633922576904297,
+   "answer": "chaos",
+   "kind": "invented"
+  },
+  {
+   "name": "tutwiler",
+   "surprise": 17.24869155883789,
+   "answer": "tutti",
+   "kind": "invented"
+  },
+  {
+   "name": "ceatalchioi",
+   "surprise": 34.76802444458008,
+   "answer": "cea",
+   "kind": "real-new"
+  },
+  {
+   "name": "carrigtwohill",
+   "surprise": 20.681018829345703,
+   "answer": "caracas",
+   "kind": "real-train"
+  },
+  {
+   "name": "khok pho",
+   "surprise": 27.025785446166992,
+   "answer": "khoja",
+   "kind": "invented"
+  },
+  {
+   "name": "vadakancheri",
+   "surprise": 23.413345336914062,
+   "answer": "vaduz",
+   "kind": "real-new"
+  },
+  {
+   "name": "nong hin",
+   "surprise": 20.208728790283203,
+   "answer": "nonna",
+   "kind": "invented"
+  },
+  {
+   "name": "hudsonville",
+   "surprise": 14.292791366577148,
+   "answer": "hudson",
+   "kind": "real-train"
+  },
+  {
+   "name": "senj",
+   "surprise": 13.002571105957031,
+   "answer": "senso",
+   "kind": "invented"
+  },
+  {
+   "name": "eldersburg",
+   "surprise": 18.583797454833984,
+   "answer": "eldorado",
+   "kind": "real-train"
+  },
+  {
+   "name": "jardim alegre",
+   "surprise": 21.150604248046875,
+   "answer": "jar",
+   "kind": "real-train"
+  },
+  {
+   "name": "gulf hills",
+   "surprise": 16.94472312927246,
+   "answer": "gulp",
+   "kind": "invented"
+  },
+  {
+   "name": "lawan",
+   "surprise": 15.31364631652832,
+   "answer": "lawrence",
+   "kind": "real-new"
+  },
+  {
+   "name": "moose jaw",
+   "surprise": 14.941905975341797,
+   "answer": "mooresville",
+   "kind": "real-train"
+  },
+  {
+   "name": "gaongo",
+   "surprise": 21.416728973388672,
+   "answer": "gao",
+   "kind": "real-train"
+  },
+  {
+   "name": "colucan",
+   "surprise": 18.322351455688477,
+   "answer": "columbia",
+   "kind": "real-train"
+  },
+  {
+   "name": "cajarc",
+   "surprise": 18.661014556884766,
+   "answer": "cajon",
+   "kind": "invented"
+  },
+  {
+   "name": "eidi",
+   "surprise": 14.391407012939453,
+   "answer": "eid",
+   "kind": "invented"
+  },
+  {
+   "name": "akalkuva",
+   "surprise": 22.91438102722168,
+   "answer": "aka",
+   "kind": "real-new"
+  },
+  {
+   "name": "centerport",
+   "surprise": 15.14187240600586,
+   "answer": "cenote",
+   "kind": "invented"
+  },
+  {
+   "name": "covarrubias",
+   "surprise": 12.696229934692383,
+   "answer": "coventry",
+   "kind": "real-new"
+  },
+  {
+   "name": "norre alslev",
+   "surprise": 35.632240295410156,
+   "answer": "norway",
+   "kind": "real-train"
+  },
+  {
+   "name": "anapoima",
+   "surprise": 18.100622177124023,
+   "answer": "ana",
+   "kind": "invented"
+  },
+  {
+   "name": "eruvatti",
+   "surprise": 23.2235050201416,
+   "answer": "eruption",
+   "kind": "invented"
+  },
+  {
+   "name": "panarukan",
+   "surprise": 18.392040252685547,
+   "answer": "panorama",
+   "kind": "real-train"
+  },
+  {
+   "name": "ilioilio",
+   "surprise": 24.062868118286133,
+   "answer": "ilias",
+   "kind": "invented"
+  },
+  {
+   "name": "moirans",
+   "surprise": 16.868810653686523,
+   "answer": "moi",
+   "kind": "real-train"
+  },
+  {
+   "name": "khaneh zenyan",
+   "surprise": 35.350948333740234,
+   "answer": "khaibar",
+   "kind": "invented"
+  },
+  {
+   "name": "cartigliano",
+   "surprise": 18.16381072998047,
+   "answer": "caracas",
+   "kind": "real-train"
+  },
+  {
+   "name": "fangda town",
+   "surprise": 25.84967613220215,
+   "answer": "fanfani",
+   "kind": "invented"
+  },
+  {
+   "name": "chrlice",
+   "surprise": 22.981353759765625,
+   "answer": "chrissy",
+   "kind": "invented"
+  },
+  {
+   "name": "pasco",
+   "surprise": 11.906070709228516,
+   "answer": "pasquale",
+   "kind": "invented"
+  },
+  {
+   "name": "tadrart",
+   "surprise": 16.064861297607422,
+   "answer": "taddeo",
+   "kind": "invented"
+  },
+  {
+   "name": "volnyy aul",
+   "surprise": 34.87543487548828,
+   "answer": "volcano",
+   "kind": "real-train"
+  },
+  {
+   "name": "khatauli",
+   "surprise": 16.714374542236328,
+   "answer": "khaibar",
+   "kind": "invented"
+  },
+  {
+   "name": "zeytinliova",
+   "surprise": 29.389616012573242,
+   "answer": "zeyne",
+   "kind": "real-new"
+  },
+  {
+   "name": "molenstede",
+   "surprise": 24.728059768676758,
+   "answer": "molteno",
+   "kind": "real-train"
+  },
+  {
+   "name": "selva dei molini",
+   "surprise": 28.752845764160156,
+   "answer": "selim",
+   "kind": "real-train"
+  },
+  {
+   "name": "ocuviri",
+   "surprise": 23.682621002197266,
+   "answer": "ocu",
+   "kind": "real-new"
+  },
+  {
+   "name": "granja de rocamora",
+   "surprise": 33.5340576171875,
+   "answer": "graziano",
+   "kind": "invented"
+  },
+  {
+   "name": "bergholtz",
+   "surprise": 14.306428909301758,
+   "answer": "bernardino",
+   "kind": "invented"
+  },
+  {
+   "name": "katrineholm",
+   "surprise": 15.697919845581055,
+   "answer": "katakana",
+   "kind": "invented"
+  },
+  {
+   "name": "vilhelmina",
+   "surprise": 16.03443145751953,
+   "answer": "vilanova",
+   "kind": "invented"
+  },
+  {
+   "name": "dronfield",
+   "surprise": 13.816169738769531,
+   "answer": "droz",
+   "kind": "invented"
+  },
+  {
+   "name": "corire",
+   "surprise": 20.080060958862305,
+   "answer": "corfu",
+   "kind": "real-train"
+  },
+  {
+   "name": "katnaghbyur",
+   "surprise": 36.11473083496094,
+   "answer": "katakana",
+   "kind": "invented"
+  },
+  {
+   "name": "wum",
+   "surprise": 14.485640525817871,
+   "answer": "wum",
+   "kind": "real-new"
+  },
+  {
+   "name": "rijeka",
+   "surprise": 12.939606666564941,
+   "answer": "rijeka",
+   "kind": "real-new"
+  },
+  {
+   "name": "ranizow",
+   "surprise": 23.43596649169922,
+   "answer": "rani",
+   "kind": "real-train"
+  },
+  {
+   "name": "golpejas",
+   "surprise": 22.615009307861328,
+   "answer": "golgotha",
+   "kind": "invented"
+  },
+  {
+   "name": "taivassalo",
+   "surprise": 19.337038040161133,
+   "answer": "taiwan",
+   "kind": "invented"
+  },
+  {
+   "name": "cairano",
+   "surprise": 17.544719696044922,
+   "answer": "cai",
+   "kind": "invented"
+  },
+  {
+   "name": "spatarei",
+   "surprise": 25.491628646850586,
+   "answer": "spa",
+   "kind": "real-train"
+  },
+  {
+   "name": "hermanville sur mer",
+   "surprise": 21.25198745727539,
+   "answer": "hermosa",
+   "kind": "real-new"
+  },
+  {
+   "name": "baliguda",
+   "surprise": 18.93488311767578,
+   "answer": "balmoral",
+   "kind": "real-train"
+  },
+  {
+   "name": "locquemeau",
+   "surprise": 29.497024536132812,
+   "answer": "loco",
+   "kind": "invented"
+  },
+  {
+   "name": "legian",
+   "surprise": 15.0576171875,
+   "answer": "legge",
+   "kind": "invented"
+  },
+  {
+   "name": "debica",
+   "surprise": 15.011317253112793,
+   "answer": "debord",
+   "kind": "invented"
+  },
+  {
+   "name": "calapor",
+   "surprise": 16.812515258789062,
+   "answer": "calabria",
+   "kind": "invented"
+  },
+  {
+   "name": "plouha",
+   "surprise": 14.627845764160156,
+   "answer": "ploieux",
+   "kind": "invented"
+  },
+  {
+   "name": "beocin",
+   "surprise": 15.762323379516602,
+   "answer": "beo",
+   "kind": "real-train"
+  },
+  {
+   "name": "burlata",
+   "surprise": 14.947813034057617,
+   "answer": "burkina faso",
+   "kind": "invented"
+  },
+  {
+   "name": "getulina",
+   "surprise": 19.499595642089844,
+   "answer": "geta",
+   "kind": "real-train"
+  },
+  {
+   "name": "yona village",
+   "surprise": 19.666494369506836,
+   "answer": "yonkers",
+   "kind": "real-train"
+  },
+  {
+   "name": "madattumpadi",
+   "surprise": 33.903564453125,
+   "answer": "madrid",
+   "kind": "real-train"
+  },
+  {
+   "name": "otkaznoye",
+   "surprise": 24.306804656982422,
+   "answer": "otk",
+   "kind": "invented"
+  },
+  {
+   "name": "neilston",
+   "surprise": 16.310928344726562,
+   "answer": "nei",
+   "kind": "invented"
+  },
+  {
+   "name": "langonnet",
+   "surprise": 21.486099243164062,
+   "answer": "langhorne",
+   "kind": "real-train"
+  },
+  {
+   "name": "gyongyoshalasz",
+   "surprise": 33.248958587646484,
+   "answer": "gyo",
+   "kind": "invented"
+  },
+  {
+   "name": "manage",
+   "surprise": 13.644384384155273,
+   "answer": "manzana de la rosa",
+   "kind": "invented"
+  },
+  {
+   "name": "mornac",
+   "surprise": 15.144777297973633,
+   "answer": "morocco",
+   "kind": "real-train"
+  },
+  {
+   "name": "casula",
+   "surprise": 13.301155090332031,
+   "answer": "casal",
+   "kind": "invented"
+  },
+  {
+   "name": "schnega",
+   "surprise": 21.425920486450195,
+   "answer": "schwabacher",
+   "kind": "invented"
+  },
+  {
+   "name": "sertaneja",
+   "surprise": 16.89156723022461,
+   "answer": "serravalle",
+   "kind": "real-train"
+  },
+  {
+   "name": "alparea",
+   "surprise": 22.182477951049805,
+   "answer": "alp",
+   "kind": "real-train"
+  },
+  {
+   "name": "emas",
+   "surprise": 12.862506866455078,
+   "answer": "ema",
+   "kind": "invented"
+  },
+  {
+   "name": "truccazzano",
+   "surprise": 24.604877471923828,
+   "answer": "trucchi",
+   "kind": "invented"
+  },
+  {
+   "name": "hresivskyi",
+   "surprise": 33.75114059448242,
+   "answer": "hreidar",
+   "kind": "invented"
+  },
+  {
+   "name": "bangdong",
+   "surprise": 15.67429256439209,
+   "answer": "banjul",
+   "kind": "real-train"
+  },
+  {
+   "name": "uttoxeter",
+   "surprise": 15.775586128234863,
+   "answer": "uttam",
+   "kind": "invented"
+  },
+  {
+   "name": "vovchynets",
+   "surprise": 23.628597259521484,
+   "answer": "vovk",
+   "kind": "invented"
+  },
+  {
+   "name": "isidro casanova",
+   "surprise": 21.945423126220703,
+   "answer": "isi",
+   "kind": "invented"
+  },
+  {
+   "name": "meadowood",
+   "surprise": 15.75454330444336,
+   "answer": "mea",
+   "kind": "invented"
+  },
+  {
+   "name": "wirges",
+   "surprise": 17.280271530151367,
+   "answer": "wirral",
+   "kind": "invented"
+  },
+  {
+   "name": "jettingen scheppach",
+   "surprise": 36.07746124267578,
+   "answer": "jetty",
+   "kind": "invented"
+  },
+  {
+   "name": "zazeran",
+   "surprise": 20.306989669799805,
+   "answer": "zazu",
+   "kind": "invented"
+  },
+  {
+   "name": "cheruthazham",
+   "surprise": 24.12047576904297,
+   "answer": "cheburek",
+   "kind": "invented"
+  },
+  {
+   "name": "qobustan",
+   "surprise": 20.341093063354492,
+   "answer": "qob",
+   "kind": "invented"
+  },
+  {
+   "name": "jalai nur",
+   "surprise": 24.928918838500977,
+   "answer": "jalapeno",
+   "kind": "invented"
+  },
+  {
+   "name": "malyshevo",
+   "surprise": 21.57439422607422,
+   "answer": "malta",
+   "kind": "real-train"
+  },
+  {
+   "name": "agronomos mexicanos",
+   "surprise": 26.56851577758789,
+   "answer": "agrana",
+   "kind": "invented"
+  },
+  {
+   "name": "aarberg",
+   "surprise": 17.200897216796875,
+   "answer": "aar",
+   "kind": "real-new"
+  },
+  {
+   "name": "moosbrunn",
+   "surprise": 22.11571502685547,
+   "answer": "mooresville",
+   "kind": "real-train"
+  },
+  {
+   "name": "canyonville",
+   "surprise": 16.57727813720703,
+   "answer": "canaletto",
+   "kind": "invented"
+  },
+  {
+   "name": "ksour essaf",
+   "surprise": 31.467220306396484,
+   "answer": "kso",
+   "kind": "invented"
+  },
+  {
+   "name": "atlixtac",
+   "surprise": 23.776512145996094,
+   "answer": "atlantico",
+   "kind": "invented"
+  },
+  {
+   "name": "sinapan",
+   "surprise": 16.854578018188477,
+   "answer": "sinan",
+   "kind": "real-train"
+  },
+  {
+   "name": "elba",
+   "surprise": 11.66828441619873,
+   "answer": "elbereth",
+   "kind": "invented"
+  },
+  {
+   "name": "halayhayin",
+   "surprise": 31.481033325195312,
+   "answer": "halal",
+   "kind": "invented"
+  },
+  {
+   "name": "miyake",
+   "surprise": 14.039815902709961,
+   "answer": "miyazaki",
+   "kind": "real-train"
+  },
+  {
+   "name": "rast",
+   "surprise": 11.580751419067383,
+   "answer": "rasa",
+   "kind": "real-train"
+  },
+  {
+   "name": "emtmannsberg",
+   "surprise": 27.514312744140625,
+   "answer": "emt",
+   "kind": "invented"
+  },
+  {
+   "name": "ouvidor",
+   "surprise": 16.03573989868164,
+   "answer": "ouvain",
+   "kind": "invented"
+  },
+  {
+   "name": "seggiano",
+   "surprise": 15.039542198181152,
+   "answer": "segur",
+   "kind": "invented"
+  },
+  {
+   "name": "cividate camuno",
+   "surprise": 30.43723487854004,
+   "answer": "civitella",
+   "kind": "invented"
+  },
+  {
+   "name": "rembangan",
+   "surprise": 20.43667984008789,
+   "answer": "remo",
+   "kind": "invented"
+  },
+  {
+   "name": "barreira",
+   "surprise": 14.393930435180664,
+   "answer": "barbacoa",
+   "kind": "invented"
+  },
+  {
+   "name": "bithur",
+   "surprise": 15.907299995422363,
+   "answer": "bitur",
+   "kind": "invented"
+  },
+  {
+   "name": "henstridge",
+   "surprise": 14.7337007522583,
+   "answer": "henry",
+   "kind": "real-new"
+  },
+  {
+   "name": "ridgmont",
+   "surprise": 14.959270477294922,
+   "answer": "ridgway",
+   "kind": "real-train"
+  },
+  {
+   "name": "san eduardo",
+   "surprise": 16.13201904296875,
+   "answer": "san jose",
+   "kind": "real-train"
+  },
+  {
+   "name": "den dungen",
+   "surprise": 21.318050384521484,
+   "answer": "denver",
+   "kind": "real-train"
+  },
+  {
+   "name": "matinella",
+   "surprise": 18.148193359375,
+   "answer": "matamoros",
+   "kind": "real-train"
+  },
+  {
+   "name": "sint michiel liber",
+   "surprise": 39.059635162353516,
+   "answer": "sinan",
+   "kind": "real-train"
+  },
+  {
+   "name": "praegraten",
+   "surprise": 24.474281311035156,
+   "answer": "praia do mar",
+   "kind": "invented"
+  },
+  {
+   "name": "tri lakes",
+   "surprise": 21.081607818603516,
+   "answer": "tripoli",
+   "kind": "real-train"
+  },
+  {
+   "name": "canepina",
+   "surprise": 18.61670684814453,
+   "answer": "canaletto",
+   "kind": "invented"
+  },
+  {
+   "name": "coqui",
+   "surprise": 12.87830638885498,
+   "answer": "coq",
+   "kind": "invented"
+  },
+  {
+   "name": "ehuasso",
+   "surprise": 23.2602481842041,
+   "answer": "ehu",
+   "kind": "invented"
+  },
+  {
+   "name": "benningen",
+   "surprise": 18.09942054748535,
+   "answer": "beni",
+   "kind": "real-train"
+  },
+  {
+   "name": "schalchen",
+   "surprise": 16.69089126586914,
+   "answer": "schwabacher",
+   "kind": "invented"
+  },
+  {
+   "name": "iota",
+   "surprise": 12.979034423828125,
+   "answer": "iot",
+   "kind": "invented"
+  },
+  {
+   "name": "muqeibila",
+   "surprise": 28.042327880859375,
+   "answer": "muqata",
+   "kind": "invented"
+  },
+  {
+   "name": "ulassai",
+   "surprise": 20.11534881591797,
+   "answer": "ula",
+   "kind": "real-train"
+  },
+  {
+   "name": "stone",
+   "surprise": 12.746600151062012,
+   "answer": "stojanovic",
+   "kind": "invented"
+  },
+  {
+   "name": "bhadkodara",
+   "surprise": 28.51363754272461,
+   "answer": "bhais",
+   "kind": "invented"
+  },
+  {
+   "name": "adlershof",
+   "surprise": 15.479841232299805,
+   "answer": "adlai",
+   "kind": "invented"
+  },
+  {
+   "name": "agronomica",
+   "surprise": 16.1290283203125,
+   "answer": "agrana",
+   "kind": "invented"
+  },
+  {
+   "name": "beoua",
+   "surprise": 20.271881103515625,
+   "answer": "beo",
+   "kind": "real-train"
+  },
+  {
+   "name": "dzuunkharaa",
+   "surprise": 31.982454299926758,
+   "answer": "dzu",
+   "kind": "invented"
+  },
+  {
+   "name": "biot",
+   "surprise": 12.902852058410645,
+   "answer": "biokovo",
+   "kind": "invented"
+  },
+  {
+   "name": "drayo",
+   "surprise": 17.94590950012207,
+   "answer": "draco",
+   "kind": "invented"
+  },
+  {
+   "name": "sindangtamu",
+   "surprise": 28.703968048095703,
+   "answer": "sinan",
+   "kind": "real-train"
+  },
+  {
+   "name": "virginia water",
+   "surprise": 17.054229736328125,
+   "answer": "virginia",
+   "kind": "real-train"
+  },
+  {
+   "name": "fara filiorum petri",
+   "surprise": 36.35320281982422,
+   "answer": "faro",
+   "kind": "real-train"
+  },
+  {
+   "name": "cerna hora",
+   "surprise": 20.591602325439453,
+   "answer": "cerro",
+   "kind": "real-train"
+  },
+  {
+   "name": "durrenroth",
+   "surprise": 27.113906860351562,
+   "answer": "durham",
+   "kind": "real-train"
+  },
+  {
+   "name": "jiawa airikecun",
+   "surprise": 54.09830093383789,
+   "answer": "jia",
+   "kind": "invented"
+  },
+  {
+   "name": "chilcompton",
+   "surprise": 22.44308853149414,
+   "answer": "chirag",
+   "kind": "invented"
+  },
+  {
+   "name": "trins",
+   "surprise": 13.830415725708008,
+   "answer": "tripoli",
+   "kind": "real-train"
+  },
+  {
+   "name": "guisando",
+   "surprise": 14.614245414733887,
+   "answer": "gui",
+   "kind": "invented"
+  },
+  {
+   "name": "vallarta de bureba",
+   "surprise": 29.782745361328125,
+   "answer": "valle de la plata",
+   "kind": "invented"
+  },
+  {
+   "name": "haza",
+   "surprise": 12.966426849365234,
+   "answer": "hazelwood",
+   "kind": "real-train"
+  },
+  {
+   "name": "skvorec",
+   "surprise": 17.515060424804688,
+   "answer": "skv",
+   "kind": "invented"
+  },
+  {
+   "name": "azuretti",
+   "surprise": 20.186538696289062,
+   "answer": "azu",
+   "kind": "invented"
+  },
+  {
+   "name": "thi tran tram tau",
+   "surprise": 44.38904571533203,
+   "answer": "thiessen",
+   "kind": "invented"
+  },
+  {
+   "name": "yamoussoukro",
+   "surprise": 16.23706817626953,
+   "answer": "yamaguchi",
+   "kind": "real-train"
+  },
+  {
+   "name": "waeng noi",
+   "surprise": 29.381242752075195,
+   "answer": "waechtersbach",
+   "kind": "real-train"
+  },
+  {
+   "name": "biar",
+   "surprise": 14.858431816101074,
+   "answer": "bia",
+   "kind": "invented"
+  },
+  {
+   "name": "hoge vucht",
+   "surprise": 26.713069915771484,
+   "answer": "hogwarts",
+   "kind": "invented"
+  },
+  {
+   "name": "bolsoj kamen",
+   "surprise": 33.850616455078125,
+   "answer": "bolton",
+   "kind": "real-train"
+  },
+  {
+   "name": "dudhani",
+   "surprise": 17.00722312927246,
+   "answer": "dudley",
+   "kind": "real-train"
+  },
+  {
+   "name": "cacimba de areia",
+   "surprise": 24.934432983398438,
+   "answer": "cachet",
+   "kind": "invented"
+  },
+  {
+   "name": "biesenthal",
+   "surprise": 20.925268173217773,
+   "answer": "bieber",
+   "kind": "invented"
+  },
+  {
+   "name": "nea iraklitsa",
+   "surprise": 36.21019744873047,
+   "answer": "nea",
+   "kind": "invented"
+  },
+  {
+   "name": "sochaux",
+   "surprise": 16.285369873046875,
+   "answer": "socorro",
+   "kind": "real-train"
+  },
+  {
+   "name": "media luna",
+   "surprise": 14.944883346557617,
+   "answer": "medina",
+   "kind": "real-train"
+  },
+  {
+   "name": "sugar factory",
+   "surprise": 16.302093505859375,
+   "answer": "sugarloaf",
+   "kind": "invented"
+  },
+  {
+   "name": "puck",
+   "surprise": 11.769351959228516,
+   "answer": "puche",
+   "kind": "invented"
+  },
+  {
+   "name": "saint aulaye",
+   "surprise": 23.665184020996094,
+   "answer": "sai",
+   "kind": "real-train"
+  },
+  {
+   "name": "antignano",
+   "surprise": 14.14364242553711,
+   "answer": "antipodes",
+   "kind": "invented"
+  },
+  {
+   "name": "tinongan",
+   "surprise": 20.006534576416016,
+   "answer": "tin",
+   "kind": "invented"
+  },
+  {
+   "name": "moera",
+   "surprise": 13.949665069580078,
+   "answer": "moe",
+   "kind": "real-train"
+  },
+  {
+   "name": "sinopoli",
+   "surprise": 13.871996879577637,
+   "answer": "sinan",
+   "kind": "real-train"
+  },
+  {
+   "name": "bonnat",
+   "surprise": 13.544174194335938,
+   "answer": "bonn",
+   "kind": "real-train"
+  },
+  {
+   "name": "monteleone dorvieto",
+   "surprise": 35.13274002075195,
+   "answer": "monte carlo",
+   "kind": "real-train"
+  },
+  {
+   "name": "wimborne minster",
+   "surprise": 13.957671165466309,
+   "answer": "wimbledon",
+   "kind": "real-train"
+  },
+  {
+   "name": "metalist",
+   "surprise": 15.021011352539062,
+   "answer": "metz",
+   "kind": "real-train"
+  },
+  {
+   "name": "huancarane",
+   "surprise": 23.819202423095703,
+   "answer": "hua",
+   "kind": "invented"
+  },
+  {
+   "name": "leopoldshohe",
+   "surprise": 20.676891326904297,
+   "answer": "leo",
+   "kind": "real-train"
+  },
+  {
+   "name": "giano vetusto",
+   "surprise": 27.695514678955078,
+   "answer": "giappone",
+   "kind": "invented"
+  },
+  {
+   "name": "al maslub",
+   "surprise": 18.427387237548828,
+   "answer": "al izquierda",
+   "kind": "invented"
+  },
+  {
+   "name": "tangiteroria",
+   "surprise": 30.196983337402344,
+   "answer": "tanjung",
+   "kind": "real-new"
+  },
+  {
+   "name": "diosgyor",
+   "surprise": 22.548030853271484,
+   "answer": "dio",
+   "kind": "real-train"
+  },
+  {
+   "name": "kadod",
+   "surprise": 16.409732818603516,
+   "answer": "kaduna",
+   "kind": "real-train"
+  },
+  {
+   "name": "lagoa do ouro",
+   "surprise": 21.261363983154297,
+   "answer": "laguna",
+   "kind": "real-train"
+  },
+  {
+   "name": "matonga",
+   "surprise": 15.338140487670898,
+   "answer": "matamoros",
+   "kind": "real-train"
+  },
+  {
+   "name": "el banco",
+   "surprise": 14.101716041564941,
+   "answer": "el izquierdo",
+   "kind": "invented"
+  },
+  {
+   "name": "salta",
+   "surprise": 10.80937385559082,
+   "answer": "salem",
+   "kind": "real-train"
+  },
+  {
+   "name": "saint rhemy",
+   "surprise": 27.85663414001465,
+   "answer": "sai",
+   "kind": "real-train"
+  },
+  {
+   "name": "eschweiler",
+   "surprise": 15.845983505249023,
+   "answer": "escalona",
+   "kind": "real-train"
+  },
+  {
+   "name": "higuera de vargas",
+   "surprise": 28.22549819946289,
+   "answer": "higuera",
+   "kind": "real-train"
+  },
+  {
+   "name": "remigio",
+   "surprise": 13.01031494140625,
+   "answer": "remo",
+   "kind": "invented"
+  },
+  {
+   "name": "krusa",
+   "surprise": 14.466920852661133,
+   "answer": "kruger",
+   "kind": "invented"
+  },
+  {
+   "name": "trouville sur mer",
+   "surprise": 18.311120986938477,
+   "answer": "trois rivieres",
+   "kind": "real-train"
+  },
+  {
+   "name": "nolo",
+   "surprise": 12.695813179016113,
+   "answer": "nolte",
+   "kind": "invented"
+  },
+  {
+   "name": "velka chuchle",
+   "surprise": 33.626182556152344,
+   "answer": "vela",
+   "kind": "real-train"
+  },
+  {
+   "name": "camachile",
+   "surprise": 16.792524337768555,
+   "answer": "camarilla",
+   "kind": "invented"
+  },
+  {
+   "name": "atlanta",
+   "surprise": 11.07536506652832,
+   "answer": "atlantico",
+   "kind": "invented"
+  },
+  {
+   "name": "cleveland",
+   "surprise": 10.772726058959961,
+   "answer": "cleveland",
+   "kind": "real-new"
+  },
+  {
+   "name": "san zeno di montagna",
+   "surprise": 25.550588607788086,
+   "answer": "san jose",
+   "kind": "real-train"
+  },
+  {
+   "name": "el agua dulcita",
+   "surprise": 26.611621856689453,
+   "answer": "el izquierdo",
+   "kind": "invented"
+  },
+  {
+   "name": "galliera veneta",
+   "surprise": 23.36634063720703,
+   "answer": "galerias",
+   "kind": "invented"
+  },
+  {
+   "name": "soeguetlue mahallesi",
+   "surprise": 61.64659881591797,
+   "answer": "soe",
+   "kind": "real-train"
+  },
+  {
+   "name": "behram",
+   "surprise": 14.001752853393555,
+   "answer": "behram",
+   "kind": "real-new"
+  },
+  {
+   "name": "nova kakhovka",
+   "surprise": 23.9788875579834,
+   "answer": "nova",
+   "kind": "invented"
+  },
+  {
+   "name": "saint pouange",
+   "surprise": 25.539669036865234,
+   "answer": "sai",
+   "kind": "real-train"
+  },
+  {
+   "name": "weidian",
+   "surprise": 17.93804168701172,
+   "answer": "wei",
+   "kind": "invented"
+  },
+  {
+   "name": "urica",
+   "surprise": 16.029945373535156,
+   "answer": "uri",
+   "kind": "real-train"
+  },
+  {
+   "name": "crisnee",
+   "surprise": 19.516399383544922,
+   "answer": "criollo",
+   "kind": "invented"
+  },
+  {
+   "name": "cisayong",
+   "surprise": 23.107837677001953,
+   "answer": "cisterna",
+   "kind": "invented"
+  },
+  {
+   "name": "kolonje",
+   "surprise": 16.11406898498535,
+   "answer": "kolobok",
+   "kind": "invented"
+  },
+  {
+   "name": "viitivka",
+   "surprise": 29.525806427001953,
+   "answer": "vii",
+   "kind": "invented"
+  },
+  {
+   "name": "gurinhata",
+   "surprise": 26.423423767089844,
+   "answer": "gurup",
+   "kind": "invented"
+  },
+  {
+   "name": "penha",
+   "surprise": 13.786911010742188,
+   "answer": "penang",
+   "kind": "invented"
+  },
+  {
+   "name": "machupicchu",
+   "surprise": 12.7412748336792,
+   "answer": "macchia",
+   "kind": "real-train"
+  },
+  {
+   "name": "casas de juan nunez",
+   "surprise": 28.716501235961914,
+   "answer": "casal",
+   "kind": "invented"
+  },
+  {
+   "name": "zemetchino",
+   "surprise": 25.463232040405273,
+   "answer": "zembla",
+   "kind": "invented"
+  },
+  {
+   "name": "fukaura",
+   "surprise": 16.137834548950195,
+   "answer": "fukushima",
+   "kind": "real-train"
+  },
+  {
+   "name": "bruce park",
+   "surprise": 16.324893951416016,
+   "answer": "bruxelles",
+   "kind": "invented"
+  },
+  {
+   "name": "rotherhithe",
+   "surprise": 16.805347442626953,
+   "answer": "rotterdam",
+   "kind": "real-train"
+  },
+  {
+   "name": "san juan de betulia",
+   "surprise": 21.603130340576172,
+   "answer": "san jose",
+   "kind": "real-train"
+  },
+  {
+   "name": "kamehameha heights",
+   "surprise": 21.77638816833496,
+   "answer": "kamareddi",
+   "kind": "real-train"
+  },
+  {
+   "name": "vakulove",
+   "surprise": 24.64883041381836,
+   "answer": "vakil",
+   "kind": "invented"
+  },
+  {
+   "name": "kretinga",
+   "surprise": 16.75597381591797,
+   "answer": "kreuzberg",
+   "kind": "real-train"
+  },
+  {
+   "name": "cleora",
+   "surprise": 15.280932426452637,
+   "answer": "cleveland",
+   "kind": "real-new"
+  },
+  {
+   "name": "pital",
+   "surprise": 12.593852043151855,
+   "answer": "pittsburgh",
+   "kind": "real-train"
+  },
+  {
+   "name": "santana da boa vista",
+   "surprise": 23.545879364013672,
+   "answer": "san jose",
+   "kind": "real-train"
+  },
+  {
+   "name": "sigmaringendorf",
+   "surprise": 27.891429901123047,
+   "answer": "siguenza",
+   "kind": "real-train"
+  },
+  {
+   "name": "grebow",
+   "surprise": 16.78582191467285,
+   "answer": "greco",
+   "kind": "invented"
+  },
+  {
+   "name": "villemandeur",
+   "surprise": 25.195880889892578,
+   "answer": "vilanova",
+   "kind": "invented"
+  },
+  {
+   "name": "sabidos",
+   "surprise": 18.42542839050293,
+   "answer": "sabbion",
+   "kind": "invented"
+  },
+  {
+   "name": "sartah",
+   "surprise": 18.74460792541504,
+   "answer": "saracen",
+   "kind": "invented"
+  },
+  {
+   "name": "bengo",
+   "surprise": 14.644186019897461,
+   "answer": "beni",
+   "kind": "real-train"
+  },
+  {
+   "name": "panjab",
+   "surprise": 13.177494049072266,
+   "answer": "panorama",
+   "kind": "real-train"
+  },
+  {
+   "name": "gilan e gharb",
+   "surprise": 30.262331008911133,
+   "answer": "gilbert",
+   "kind": "real-train"
+  },
+  {
+   "name": "auseu",
+   "surprise": 18.739376068115234,
+   "answer": "auspice",
+   "kind": "invented"
+  },
+  {
+   "name": "lichtensteig",
+   "surprise": 18.898595809936523,
+   "answer": "lichen",
+   "kind": "invented"
+  },
+  {
+   "name": "kobylnica",
+   "surprise": 19.88638687133789,
+   "answer": "kobenhavn",
+   "kind": "invented"
+  },
+  {
+   "name": "borebi",
+   "surprise": 19.132015228271484,
+   "answer": "borjomi",
+   "kind": "real-train"
+  },
+  {
+   "name": "dania beach",
+   "surprise": 17.551433563232422,
+   "answer": "daniel",
+   "kind": "real-train"
+  },
+  {
+   "name": "swansboro",
+   "surprise": 15.3034086227417,
+   "answer": "swa",
+   "kind": "invented"
+  },
+  {
+   "name": "xeldem",
+   "surprise": 21.604711532592773,
+   "answer": "xelm",
+   "kind": "invented"
+  },
+  {
+   "name": "gav khaneh",
+   "surprise": 28.81006622314453,
+   "answer": "gavin",
+   "kind": "invented"
+  },
+  {
+   "name": "carmaux",
+   "surprise": 15.212528228759766,
+   "answer": "caracas",
+   "kind": "real-train"
+  },
+  {
+   "name": "bebeji",
+   "surprise": 20.426952362060547,
+   "answer": "beb",
+   "kind": "invented"
+  },
+  {
+   "name": "north bethesda",
+   "surprise": 19.985153198242188,
+   "answer": "norway",
+   "kind": "real-train"
+  },
+  {
+   "name": "wuyang",
+   "surprise": 14.718080520629883,
+   "answer": "wuyang",
+   "kind": "real-new"
+  },
+  {
+   "name": "owensville",
+   "surprise": 14.619051933288574,
+   "answer": "owe",
+   "kind": "invented"
+  },
+  {
+   "name": "new ulm",
+   "surprise": 16.457138061523438,
+   "answer": "new york",
+   "kind": "invented"
+  },
+  {
+   "name": "bois joli",
+   "surprise": 17.741497039794922,
+   "answer": "boi",
+   "kind": "real-train"
+  },
+  {
+   "name": "shixia",
+   "surprise": 15.721333503723145,
+   "answer": "shi",
+   "kind": "invented"
+  },
+  {
+   "name": "glonn",
+   "surprise": 17.65740966796875,
+   "answer": "glo",
+   "kind": "invented"
+  },
+  {
+   "name": "machados",
+   "surprise": 12.886090278625488,
+   "answer": "macchia",
+   "kind": "real-train"
+  },
+  {
+   "name": "coassolo",
+   "surprise": 19.975812911987305,
+   "answer": "coa",
+   "kind": "invented"
+  },
+  {
+   "name": "phelps",
+   "surprise": 13.285202980041504,
+   "answer": "pheon",
+   "kind": "invented"
+  },
+  {
+   "name": "xinmatou",
+   "surprise": 23.455663681030273,
+   "answer": "xinjiang",
+   "kind": "invented"
+  },
+  {
+   "name": "secu",
+   "surprise": 13.870264053344727,
+   "answer": "secundus",
+   "kind": "invented"
+  },
+  {
+   "name": "zoeschen",
+   "surprise": 21.784442901611328,
+   "answer": "zoe",
+   "kind": "invented"
+  },
+  {
+   "name": "alaqahdari sarobi",
+   "surprise": 46.04096984863281,
+   "answer": "ala",
+   "kind": "real-train"
+  },
+  {
+   "name": "feillens",
+   "surprise": 24.657962799072266,
+   "answer": "fei",
+   "kind": "invented"
+  },
+  {
+   "name": "laruscade",
+   "surprise": 23.010860443115234,
+   "answer": "larissa",
+   "kind": "invented"
+  },
+  {
+   "name": "cantilan",
+   "surprise": 16.21454620361328,
+   "answer": "canaletto",
+   "kind": "invented"
+  },
+  {
+   "name": "aguilares",
+   "surprise": 15.083170890808105,
+   "answer": "aguas de flores",
+   "kind": "invented"
+  },
+  {
+   "name": "sanarate",
+   "surprise": 20.283973693847656,
+   "answer": "san jose",
+   "kind": "real-train"
+  },
+  {
+   "name": "massey drive",
+   "surprise": 20.50461196899414,
+   "answer": "masa",
+   "kind": "invented"
+  },
+  {
+   "name": "littleton common",
+   "surprise": 22.696950912475586,
+   "answer": "liten",
+   "kind": "invented"
+  },
+  {
+   "name": "barrio aztlan",
+   "surprise": 22.58047866821289,
+   "answer": "barbacoa",
+   "kind": "invented"
+  },
+  {
+   "name": "biala krakowska",
+   "surprise": 24.97713851928711,
+   "answer": "bia",
+   "kind": "invented"
+  },
+  {
+   "name": "sandala",
+   "surprise": 15.256718635559082,
+   "answer": "san jose",
+   "kind": "real-train"
+  },
+  {
+   "name": "bonneau beach",
+   "surprise": 22.308475494384766,
+   "answer": "bonn",
+   "kind": "real-train"
+  },
+  {
+   "name": "shunping",
+   "surprise": 18.323802947998047,
+   "answer": "shu",
+   "kind": "real-train"
+  },
+  {
+   "name": "ardenno",
+   "surprise": 15.14421272277832,
+   "answer": "arduino",
+   "kind": "invented"
+  },
+  {
+   "name": "trimsaran",
+   "surprise": 18.966135025024414,
+   "answer": "tripoli",
+   "kind": "real-train"
+  },
+  {
+   "name": "coudoux",
+   "surprise": 18.6285457611084,
+   "answer": "cougar",
+   "kind": "invented"
+  },
+  {
+   "name": "galatas",
+   "surprise": 15.155852317810059,
+   "answer": "galerias",
+   "kind": "invented"
+  },
+  {
+   "name": "sequim",
+   "surprise": 12.703851699829102,
+   "answer": "seqe",
+   "kind": "invented"
+  },
+  {
+   "name": "church hill",
+   "surprise": 14.729052543640137,
+   "answer": "chuquibamba",
+   "kind": "real-train"
+  },
+  {
+   "name": "tazacorte",
+   "surprise": 16.640987396240234,
+   "answer": "tazza",
+   "kind": "invented"
+  },
+  {
+   "name": "domaniewice",
+   "surprise": 26.85930633544922,
+   "answer": "dominica",
+   "kind": "invented"
+  },
+  {
+   "name": "ghidfalau",
+   "surprise": 30.512378692626953,
+   "answer": "ghi",
+   "kind": "invented"
+  },
+  {
+   "name": "grove",
+   "surprise": 13.415220260620117,
+   "answer": "grottino",
+   "kind": "invented"
+  },
+  {
+   "name": "bakixanov",
+   "surprise": 29.218647003173828,
+   "answer": "bakhtiari",
+   "kind": "invented"
+  },
+  {
+   "name": "rodi",
+   "surprise": 13.899782180786133,
+   "answer": "rodriguez",
+   "kind": "real-train"
+  },
+  {
+   "name": "qurujan",
+   "surprise": 23.74860191345215,
+   "answer": "qurayyah",
+   "kind": "invented"
+  },
+  {
+   "name": "lake stevens",
+   "surprise": 16.618730545043945,
+   "answer": "lakeland",
+   "kind": "real-train"
+  },
+  {
+   "name": "palkonda",
+   "surprise": 18.3679256439209,
+   "answer": "palma",
+   "kind": "real-train"
+  },
+  {
+   "name": "yolagzi",
+   "surprise": 24.291011810302734,
+   "answer": "yolanda",
+   "kind": "invented"
+  },
+  {
+   "name": "carbunari",
+   "surprise": 19.7939453125,
+   "answer": "caracas",
+   "kind": "real-train"
+  },
+  {
+   "name": "sunny isles beach",
+   "surprise": 24.266223907470703,
+   "answer": "sunnyvale",
+   "kind": "real-train"
+  },
+  {
+   "name": "ukrainske",
+   "surprise": 21.421817779541016,
+   "answer": "ukriv",
+   "kind": "invented"
+  },
+  {
+   "name": "zag",
+   "surprise": 12.651229858398438,
+   "answer": "zagreb",
+   "kind": "real-train"
+  },
+  {
+   "name": "helmbrechts",
+   "surprise": 16.610393524169922,
+   "answer": "helvetia",
+   "kind": "invented"
+  },
+  {
+   "name": "wezep",
+   "surprise": 19.133193969726562,
+   "answer": "wez",
+   "kind": "invented"
+  },
+  {
+   "name": "krasnyy oktyabr",
+   "surprise": 21.44668960571289,
+   "answer": "krajina",
+   "kind": "invented"
+  }
+ ]
+}
