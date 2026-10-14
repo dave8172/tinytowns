@@ -59,7 +59,9 @@ model = AutoModelForCausalLM.from_pretrained(
     model_id, dtype=torch.float16 if cuda else torch.float32,
     device_map="auto" if cuda else None).eval()
 first = next(model.parameters()).device
-where = sorted({str(d) for d in getattr(model, "hf_device_map", {"": str(first)}).values()})
+# hf_device_map names a GPU by its number (0) and the rest by name ("cpu"); label both the same way
+where = sorted({f"cuda:{d}" if isinstance(d, int) else str(d)
+                for d in getattr(model, "hf_device_map", {"": str(first)}).values()})
 print(f"{model_id}: {sum(p.numel() for p in model.parameters()):,} weights, on {where}")
 ctx_ids = tok(context, return_tensors="pt").input_ids[0]
 
