@@ -9,6 +9,7 @@ read together, and every question gets 28 probabilities back.
     pip install laya                      # once; keeps your CUDA torch (Laya needs torch>=2.0)
     python bench/step3_laya.py --n 1      # one name: check it loads, read every prediction
     python bench/step3_laya.py            # all 300 -> bench/results/laya-<device>.json
+    python bench/step3_laya.py --reverse  # control: options in reverse order -> ...-reversed.json
 The first run downloads the checkpoint from Hugging Face (convaiinnovations/laya).
 """
 import json
@@ -35,6 +36,7 @@ FLOOR, STRICT_FLOOR = 0.00005, 1e-6
 names = [line for line in (ROOT / "bench/names.txt").read_text(encoding="utf-8").splitlines() if line]
 n = int(sys.argv[sys.argv.index("--n") + 1]) if "--n" in sys.argv else len(names)
 names = names[:n]
+REVERSE = "--reverse" in sys.argv  # control run: the 28 options listed in reverse order
 
 revision = model_info(REPO).sha  # the exact checkpoint version, so the run can be repeated
 agent = laya.load(REPO, revision=revision)  # picks the GPU when torch can see one
@@ -43,7 +45,7 @@ print(f"laya {version('laya')}, {REPO}@{revision[:8]}, device {device}")
 
 
 def ask(name):
-    qs, answers = questions(name)
+    qs, answers = questions(name, REVERSE)
     # Laya's questions are plain dicts; "type" says which kind of answer to give
     return agent.predict(STATE, {qid: {"type": "choice", **q} for qid, q in qs.items()}), answers
 
@@ -75,6 +77,7 @@ result = {
     "model": f"{REPO}@{revision}",
     "laya_version": version("laya"),
     "device": torch.cuda.get_device_name() if device.startswith("cuda") else device,
+    "options_reversed": REVERSE,
     "n_names": len(names),
     "n_predictions": len(rows),
     "loss": sum(-math.log(max(r["p"], FLOOR)) for r in rows) / len(rows),
@@ -89,6 +92,6 @@ if len(names) < 300:
     for r in rows:  # the probe is small enough to read prediction by prediction
         print(f"  {r['name'][:r['pos']]!r:<24} real {r['real']:<6} p {r['p']:.4f}  top {r['top']}")
 else:
-    out = ROOT / f"bench/results/laya-{device.split(':')[0]}.json"
+    out = ROOT / f"bench/results/laya-{device.split(':')[0]}{'-reversed' if REVERSE else ''}.json"
     out.write_text(json.dumps({"result": result, "predictions": rows}, indent=1) + "\n")
     print(f"saved to {out.relative_to(ROOT)}")

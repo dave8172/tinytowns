@@ -8,6 +8,7 @@ Needs a TypeSafe key in the environment (TYPESAFE_API_KEY; get one at console.ty
 Run from the repo root:
     python bench/step2_jev.py --n 1     # one name first: shows real tokens and the cost of 300
     python bench/step2_jev.py           # all 300
+    python bench/step2_jev.py --reverse # control: options in reverse order -> jev-reversed.json
 Jev charges per input token ($0.042 per million when this was written; output is free).
 """
 import json
@@ -31,11 +32,12 @@ FLOOR, STRICT_FLOOR = 0.005, 1e-6
 names = [line for line in (ROOT / "bench/names.txt").read_text(encoding="utf-8").splitlines() if line]
 n = int(sys.argv[sys.argv.index("--n") + 1]) if "--n" in sys.argv else len(names)
 names = names[:n]
+REVERSE = "--reverse" in sys.argv  # control run: the 28 options listed in reverse order
 
 client = TypeSafeClient(model="jev-latest")
 rows, tokens, seconds, model_seen = [], 0, [], None
 for i, name in enumerate(names):
-    qs, answers = questions(name)
+    qs, answers = questions(name, REVERSE)
     start = time.perf_counter()
     response = client.system_one(
         state=STATE,
@@ -54,6 +56,7 @@ for i, name in enumerate(names):
 
 result = {
     "model": model_seen,
+    "options_reversed": REVERSE,
     "n_names": len(names),
     "n_predictions": len(rows),
     # averaged over predictions, as for our models
@@ -74,6 +77,6 @@ if len(names) < 300:
     for r in rows:  # the probe is small enough to read prediction by prediction
         print(f"  {r['name'][:r['pos']]!r:<24} real {r['real']:<6} p {r['p']:.4f}  top {r['top']}")
 else:
-    out = ROOT / "bench/results/jev.json"
+    out = ROOT / f"bench/results/jev{'-reversed' if REVERSE else ''}.json"
     out.write_text(json.dumps({"result": result, "predictions": rows}, indent=1) + "\n")
     print(f"saved to {out.relative_to(ROOT)}")

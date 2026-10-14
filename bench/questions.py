@@ -30,13 +30,19 @@ STATE = {
 }
 
 
-def questions(name):
+# The same 28 options in reverse order (z ... a, space, end), for a control run: a model that
+# judges the symbols gives the same answers in either order; one that favours a place in the
+# list (say, the last option) changes its pick when the order flips.
+CRITERIA_REVERSED = dict(reversed(list(CRITERIA.items())))
+
+
+def questions(name, reverse=False):
     """One question per prediction: ({id: {instructions, criteria}}, {id: real answer})."""
     qs, answers = {}, {}
     for t in range(len(name) + 1):  # each letter, then "end of name"
         so_far = name[:t]
         written = f'Written so far: "{so_far}".' if so_far else "Nothing is written yet."
         qs[f"p{t}"] = {"instructions": f"{written} Which symbol comes next?",
-                       "criteria": CRITERIA}
+                       "criteria": CRITERIA_REVERSED if reverse else CRITERIA}
         answers[f"p{t}"] = OPTIONS[ALPHABET.index(name[t])] if t < len(name) else "end"
     return qs, answers
