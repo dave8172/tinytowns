@@ -1,0 +1,35 @@
+{
+  "device": "cpu",
+  "threads": 1,
+  "n_test": 300,
+  "n_predictions": 3125,
+  "models": {
+    "bigram": {
+      "weights": 784,
+      "loss": 2.6857439570001604,
+      "full": 2.6731624606890843,
+      "top": 0.18592
+    },
+    "tinytowns-nano": {
+      "weights": 4572,
+      "loss": 2.486175,
+      "full": 2.4675988546750895,
+      "top": 0.25152,
+      "ms_per_name": 0.442535150796175
+    },
+    "tinytowns-small": {
+      "weights": 105052,
+      "loss": 2.25177328125,
+      "full": 2.204930351475921,
+      "top": 0.31648,
+      "ms_per_name": 1.0340805165469646
+    },
+    "tinytowns": {
+      "weights": 1001500,
+      "loss": 2.19416703125,
+      "full": 2.150443470572743,
+      "top": 0.33856,
+      "ms_per_name": 2.6131169870495796
+    }
+  }
+}
