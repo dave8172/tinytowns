@@ -1,6 +1,6 @@
 """Benchmark step 1: the 300 test names, and how our own models score on them.
 
-Every model in the benchmark (ours, Jev, Laya, Claude) is graded on the same 300 validation
+Every model in the benchmark is graded on the same 300 validation
 names, so this step picks them once and saves them to bench/names.txt. Then it measures the
 counting baseline and the three tinytowns sizes on those names:
     loss      average -ln(probability given to the real next symbol), as in training

@@ -1,11 +1,11 @@
-"""Benchmark step 5: no model at all. Finish a name by looking its first 3 letters up in the list.
+"""Benchmark step 4: no model at all. Finish a name by looking its first 3 letters up in the list.
 
 If the job is "give me a real place that starts with these letters", the list itself answers it.
 data/cities.txt holds every name, so a sorted copy plus a binary search (bisect) finds the first
 real name with that start. This is the bar any model should be compared with for real names.
 It also counts how many real places share each 3-letter start: the more there are, the less a
 model can know which one was meant.
-    python bench/step5_lookup.py   -> bench/results/lookup.json
+    python bench/step4_lookup.py   -> bench/results/lookup.json
 """
 import bisect
 import json

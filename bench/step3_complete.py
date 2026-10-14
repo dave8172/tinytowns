@@ -1,4 +1,4 @@
-"""Benchmark step 4: finish a name from its first 3 letters. Claude Haiku 5.5 against our models.
+"""Benchmark step 3: finish a name from its first 3 letters. Claude Haiku 5.5 against our models.
 
 Claude gives no probabilities, so it can't have a loss. Instead every model gets the same job:
 the first 3 letters of each of the 300 test names, finish the name. Each answer is checked
@@ -10,9 +10,9 @@ against data/cities.txt, as in play.py:
 Our models answer twice: greedy (always the most likely next symbol, like a best guess) and
 sampled at temperature 1 (their natural spread). Claude answers once with default settings.
 
-    python bench/step4_complete.py --ours          # free: our three models only
-    python bench/step4_complete.py --n 1           # Claude on one prefix: real tokens and cost
-    python bench/step4_complete.py                 # our models and Claude, all 300
+    python bench/step3_complete.py --ours          # free: our three models only
+    python bench/step3_complete.py --n 1           # Claude on one prefix: real tokens and cost
+    python bench/step3_complete.py                 # our models and Claude, all 300
 Claude needs ANTHROPIC_API_KEY in the environment.
 """
 import json
@@ -29,7 +29,6 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from data.prepare import clean  # noqa: E402  the same cleaning as cities.txt
 from model import CONTEXT, itos, load_weights, stoi  # noqa: E402
-from questions import STATE  # noqa: E402
 
 SEED = 42
 CLAUDE = "claude-haiku-5-5"
@@ -103,8 +102,12 @@ if "--ours" in sys.argv or n == 300:
 if "--ours" not in sys.argv:
     import anthropic
     client = anthropic.Anthropic()
-    system = (f"{STATE['task']} {STATE['names']} You are given the first letters of one such "
-              "name. Reply with the whole name only: no other words, no punctuation.")
+    # The same facts our models learned from the data: real place names, lowercase a-z and spaces.
+    system = ("A real place name is being written one symbol at a time. Guess what comes next. "
+              "Cities, towns and villages anywhere in the world with at least 1,000 people "
+              "(the GeoNames list). Written in lowercase, letters a-z and spaces only, "
+              "accents removed, at most 20 symbols long. You are given the first letters of one "
+              "such name. Reply with the whole name only: no other words, no punctuation.")
     rows, seconds, tokens_in, tokens_out = [], [], 0, 0
     for name in names:
         start = time.perf_counter()
