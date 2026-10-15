@@ -1,0 +1,88 @@
+/* tinytowns on Hugging Face: the page, then the playground's own rules (the same as on quirkyagents.com). */
+@font-face { font-family: "Pixelify"; src: url("fonts/pixelify.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+/* Pixelify's digits and B, C, Z read as other characters, so they come from Jersey 10, sized to Pixelify's cap height. */
+@font-face { font-family: "Pixelify"; src: url("fonts/jersey.woff2") format("woff2"); font-weight: 400 700; unicode-range: U+0030-0039, U+0042-0043, U+005A; size-adjust: 118.5%; font-display: swap; }
+@font-face { font-family: "Atkinson"; src: url("fonts/atkinson.woff2") format("woff2"); font-weight: 200 800; font-display: swap; }
+
+:root { color-scheme: light dark; --ink: #231c26; --muted: #6b6258; --line: #e6dccb; --bg: #fbf6ec; --card: #fffdf8;
+  --accent: #3b3a8c; --gold: #d9a441; --tint: #eeedf8; --on-ink: #d8d6f4;
+  --pixel: Pixelify, system-ui, sans-serif; --sans: Atkinson, system-ui, sans-serif; --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #ece6d8; --muted: #a9a2b6; --line: #34304d; --bg: #13121d; --card: #1c1a2b;
+    --accent: #a5a3f2; --gold: #e2b65a; --tint: #26244a; --on-ink: #4a4566; }
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bg); overflow-x: clip; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 18px/1.6 var(--sans); }
+a { color: var(--accent); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+main { max-width: 40rem; margin: 0 auto; padding: 1.5rem 16px 3rem; }
+.head { display: flex; align-items: center; gap: .8rem; }
+.head img { width: 56px; height: 56px; image-rendering: pixelated; }
+h1 { font: 700 2.4rem/1 var(--pixel); margin: 0; }
+h2 { font: 700 1.5rem/1.2 var(--pixel); margin: 2.2rem 0 .6rem; }
+.lead { font-size: 1.1rem; margin: 1rem 0 0; }
+p { margin: .7rem 0; }
+pre { background: var(--card); border: 2px solid var(--line); padding: .7rem .85rem; overflow-x: auto; font: .88rem/1.5 var(--mono); }
+code { font-family: var(--mono); font-size: .9em; }
+.links { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; padding: 0; list-style: none; }
+.small { font-size: .9rem; color: var(--muted); }
+
+figure.widget { margin: 1.6rem 0 1.8rem; padding: 1rem 1.1rem 1.1rem; border: 2px solid var(--ink); background: var(--card); box-shadow: 5px 5px 0 var(--gold); }
+figure.widget > figcaption { font: 500 1rem/1.45 var(--sans); color: var(--ink); margin: 0 0 .8rem; }
+button { font-family: inherit; }
+
+/* the tinytowns playground: pick a model, type, tap a letter, end the name */
+.tt { display: grid; grid-template-columns: minmax(0, 1fr); gap: .85rem; }
+.tt-models { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
+.tt-model { display: grid; gap: .2rem; justify-items: center; padding: .55rem .3rem; cursor: pointer; color: var(--ink); background: var(--bg); border: 2px solid var(--line); }
+.tt-model strong { font: 600 .95rem/1.1 Atkinson, system-ui, sans-serif; }
+.tt-model small { font: 500 .8rem/1 Atkinson, system-ui, sans-serif; color: var(--muted); }
+.tt-model[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+.tt-model[aria-pressed="true"] small { color: var(--on-ink); }
+.tt-temp { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "k k v" "a s b"; align-items: center; gap: .3rem .6rem; font: 600 .9rem/1 Atkinson, system-ui, sans-serif; }
+.tt-temp-k { grid-area: k; }
+.tt-temp-v { grid-area: v; color: var(--accent); text-align: right; }
+.tt-temp-end { font: 500 .82rem/1 Atkinson, system-ui, sans-serif; color: var(--muted); }
+.tt-temp-end.safe { grid-area: a; }
+.tt-temp-end.wild { grid-area: b; }
+.tt-temp input { grid-area: s; width: 100%; accent-color: var(--accent); min-height: 32px; margin: 0; }
+.tt-bar { display: flex; border: 2px solid var(--ink); background: var(--bg); box-shadow: 4px 4px 0 var(--gold); }
+.tt-bar input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); padding: .6rem .75rem; font: 600 1.55rem/1.2 var(--pixel); letter-spacing: .04em; }
+.tt-bar input::placeholder { color: var(--muted); opacity: .6; font-weight: 400; }
+.tt-bar input:focus { outline: none; }
+.tt-bar:focus-within { outline: 3px solid var(--gold); outline-offset: 2px; }
+.tt-clear { border: 0; background: transparent; color: var(--muted); font: 600 1.5rem/1 var(--pixel); padding: 0 .8rem; cursor: pointer; }
+.tt-hint { font-size: .95rem; color: var(--muted); margin: 0; min-height: 1.5em; }
+.prose .tt-next { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+.prose .tt-next li { margin: 0; }
+.tt-opt { width: 100%; display: grid; grid-template-columns: 5.6rem minmax(0, 1fr) 3rem; align-items: center; gap: .6rem; padding: .35rem .5rem; cursor: pointer;
+  color: var(--ink); background: var(--bg); border: 2px solid var(--line); text-align: left; -webkit-tap-highlight-color: transparent; }
+.tt-opt:hover { border-color: var(--ink); }
+.tt-opt:active { transform: translate(1px, 1px); }
+.tt-sym { font: 700 1.3rem/1 var(--mono); }
+.tt-sym.word { font: 700 .95rem/1.15 Atkinson, system-ui, sans-serif; color: var(--accent); }
+.tt-track { height: .9rem; background: var(--tint); }
+.tt-track span { display: block; height: 100%; background: var(--accent); transition: width .15s; }
+.tt-p { font: 500 .85rem/1 Atkinson, system-ui, sans-serif; text-align: right; }
+.tt-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.tt-finish, .tt-again { font: 600 .95rem/1 Atkinson, system-ui, sans-serif; color: var(--bg); background: var(--ink); border: 2px solid var(--ink); padding: .7rem 1rem; box-shadow: 3px 3px 0 var(--gold); cursor: pointer; }
+.tt-finish:active, .tt-again:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--gold); }
+.tt-finish:disabled { opacity: .45; cursor: default; }
+.tt-verdict:empty { display: none; }
+.tt-verdict { display: grid; justify-items: start; gap: .35rem; padding: .9rem 1rem; border: 2px solid var(--ink); background: var(--bg); }
+.tt-verdict p { margin: 0; }
+.tt-badge { font: 700 .85rem/1 Atkinson, system-ui, sans-serif; text-transform: uppercase; letter-spacing: .1em; padding: .4rem .6rem; }
+.tt-badge.real { background: var(--gold); color: var(--ink); }
+.tt-badge.invented { background: var(--accent); color: var(--bg); }
+.tt-name { font: 700 clamp(1.5rem, 7vw, 2rem)/1.15 var(--pixel); overflow-wrap: anywhere; text-transform: capitalize; }
+.tt-line, .tt-checking { font-size: .98rem; color: var(--muted); }
+.tt-again { margin-top: .35rem; }
+.tt-status { font-size: .9rem; color: var(--muted); margin: 0; }
+.tt-legend { display: grid; grid-template-columns: auto 1fr; gap: .25rem .7rem; margin: 0; padding: .6rem .75rem; background: var(--tint); font-size: .92rem; line-height: 1.4; }
+.tt-legend[hidden], .prose .tt-next[hidden] { display: none; }
+.tt-legend dt { font-weight: 700; color: var(--accent); white-space: nowrap; }
+.tt-legend dd { margin: 0; }
+.tt-status:empty { display: none; }
+@media (prefers-reduced-motion: reduce) { .tt-track span { transition: none; } }

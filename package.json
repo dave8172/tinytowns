@@ -1,0 +1,15 @@
+{
+  "name": "@dave8172/tinytowns",
+  "version": "1.0.0",
+  "description": "A tiny letter-level GPT that invents town names, in plain JavaScript. No dependencies; runs in the browser or Node.",
+  "main": "tinytowns.js",
+  "types": "tinytowns.d.ts",
+  "files": ["tinytowns.js", "tinytowns.d.ts"],
+  "engines": { "node": ">=18" },
+  "keywords": ["name-generator", "town-names", "city-names", "procedural-generation", "procgen", "worldbuilding", "gpt", "transformer", "character-level", "safetensors"],
+  "homepage": "https://github.com/dave8172/tinytowns#use-it-in-javascript",
+  "repository": { "type": "git", "url": "git+https://github.com/dave8172/tinytowns.git" },
+  "bugs": "https://github.com/dave8172/tinytowns/issues",
+  "author": "dave8172",
+  "license": "MIT"
+}

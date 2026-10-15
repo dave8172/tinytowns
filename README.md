@@ -21,6 +21,42 @@ chance; it has never been to any of them.
 Type a few letters, watch the model's next-letter chances, and let it finish a name. The page
 checks the name against the list of real places; most are new, as intended.
 
+## Use it in JavaScript
+
+For a game, a map maker or a story tool: `tinytowns.js` is one file with no dependencies. It runs
+in a browser or in Node 18+, on your own machine, with no server and no API key.
+
+```
+npm install @dave8172/tinytowns
+```
+
+```js
+import TinyTowns from "@dave8172/tinytowns";
+
+const model = await TinyTowns.load(TinyTowns.url("tinytowns-small"));   // 424 KB, from Hugging Face
+model.sample();                               // a new name, e.g. "ponte leneta"
+model.sample("port", { temperature: 0.8 });   // a name that starts with "port"
+model.next("ban");                            // 28 probabilities for the next symbol, in TinyTowns.ALPHABET order
+```
+
+In a web page, without npm:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@dave8172/tinytowns@1"></script>
+<script>
+  TinyTowns.load(TinyTowns.url("tinytowns-small")).then((m) => console.log(m.sample()));
+</script>
+```
+
+- **Sizes:** `tinytowns-nano` (20 KB), `tinytowns-small` (424 KB), `tinytowns` (4 MB). The bigger
+  ones write more convincing names.
+- **Temperature:** below 1 gives safer, more common-sounding names; above 1 gives wilder ones.
+- **Repeatable names:** pass your own `random` function, e.g. a seeded one:
+  `model.sample("", { random: mySeededRandom })`.
+- **Offline:** download a `.safetensors` file once and pass its bytes instead of a URL:
+  `TinyTowns.load(new Uint8Array(fs.readFileSync("tinytowns-small.safetensors")).buffer)`.
+- Names use `a` to `z` and spaces only, at most 20 letters.
+
 ## Status
 
 | Step | What | Status |

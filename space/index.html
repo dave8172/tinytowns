@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tinytowns: a tiny GPT that invents town names</title>
+  <meta name="description" content="A tiny letter-level GPT that makes up new town names in the style of real ones. It runs in your browser, with no server and no API key.">
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="prose">
+  <div class="head">
+    <img src="logo.png" alt="" width="56" height="56">
+    <h1>tinytowns</h1>
+  </div>
+  <p class="lead">A tiny GPT that makes up new town names in the style of real ones. It runs in your browser, with no server and no API key.</p>
+  <p>It learned the letter patterns of 128,435 real place names. It does not know which places exist, so most names it writes are new.</p>
+
+  <figure class="widget" data-widget="tinytowns">
+    <figcaption>Type some letters. The bars show the model's guesses for the next letter.</figcaption>
+    <script type="application/json">
+    {
+      "start": "tinytowns-small",
+      "real": "A place with this name exists. It is in the list of 142,706 real places that the model learned from.",
+      "invented": "No place in the list of 142,706 real places has this name. Somebody should start one.",
+      "cities": "https://cdn.jsdelivr.net/gh/dave8172/tinytowns@c949422580a494ebd823823d2a95a4b09b328c29/data/cities.txt",
+      "models": [
+        { "id": "tinytowns-nano", "label": "nano", "short": "4.5K numbers", "file": "20 KB" },
+        { "id": "tinytowns-small", "label": "small", "short": "105K numbers", "file": "424 KB" },
+        { "id": "tinytowns", "label": "tinytowns", "short": "1M numbers", "file": "4 MB" }
+      ]
+    }
+    </script>
+    <div class="widget-tables"><p>The playground needs JavaScript.</p></div>
+  </figure>
+
+  <h2>Use it in your code</h2>
+  <p>For a game, a map maker or a story tool. One file, no dependencies, in a browser or Node 18+.</p>
+  <pre>npm install @dave8172/tinytowns</pre>
+  <pre>import TinyTowns from "@dave8172/tinytowns";
+
+const model = await TinyTowns.load(TinyTowns.url("tinytowns-small"));
+model.sample();                               // a new name
+model.sample("port", { temperature: 0.8 });   // one that starts with "port"</pre>
+  <p>Sizes, temperature, repeatable names and offline use: <a href="https://github.com/dave8172/tinytowns#use-it-in-javascript">the guide on GitHub</a>.</p>
+
+  <h2>How small is it?</h2>
+  <p>The three sizes have 4,572, 105,052 and about 1 million numbers. A chat model has billions. Every one of them can be read: the code and each build step are public.</p>
+  <ul class="links">
+    <li><a href="https://github.com/dave8172/tinytowns">Code and build steps</a></li>
+    <li><a href="https://huggingface.co/dave8172/tinytowns">Model weights</a></li>
+    <li><a href="https://quirkyagents.com/wizard/projects/small-model-vs-llm-benchmark/">Benchmark against small open language models</a></li>
+  </ul>
+
+  <p class="small">Place names: <a href="https://www.geonames.org/">GeoNames</a>, CC BY 4.0. Fonts: Pixelify Sans, Jersey 10 and Atkinson Hyperlegible Next, SIL Open Font License (in <code>fonts/</code>). Made by <a href="https://quirkyagents.com/wizard/">dave8172</a>.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@dave8172/tinytowns@1.0.0/tinytowns.js" integrity="sha384-Kwuf40e8HOd0goSgOEMwjycn9zmWx3XXzy3kl1x4/G4QloWGXSJ0/Y1XNCngRqsW" crossorigin="anonymous"></script>
+<script src="playground.js"></script>
+</body>
+</html>
